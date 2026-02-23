@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 16:15:05 by gabch             #+#    #+#             */
-/*   Updated: 2026/02/22 16:43:04 by gabch            ###   ########.fr       */
+/*   Updated: 2026/02/23 20:17:26 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@ typedef struct s_rom_ctx
 	uint8_t	*memory;
 }	t_rom_ctx;
 
-int	init_memory_rom(const char *name);
-
+int		init_memory_rom(const char *name);
+uint8_t	read_rom(uint16_t addr);
 #endif

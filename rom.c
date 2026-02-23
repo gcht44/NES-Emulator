@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 16:13:42 by gabch             #+#    #+#             */
-/*   Updated: 2026/02/22 17:05:40 by gabch            ###   ########.fr       */
+/*   Updated: 2026/02/23 20:17:15 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,9 @@ int	init_memory_rom(const char *name)
 		return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
+}
+
+uint8_t	read_rom(uint16_t addr)
+{
+	return (g_rom_mem[addr - 0x8000]);
 }

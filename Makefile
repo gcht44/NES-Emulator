@@ -5,7 +5,7 @@ CFLAGS = -Werror -Wall -Wextra
 
 INCLUDE = -I./includes
 
-SRCS = main.c rom.c
+SRCS = main.c rom.c bus.c
 
 OBJ_DIR = obj
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
