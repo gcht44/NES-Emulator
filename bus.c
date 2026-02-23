@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 22:02:53 by gabch             #+#    #+#             */
-/*   Updated: 2026/02/23 20:10:21 by gabch            ###   ########.fr       */
+/*   Updated: 2026/02/23 20:15:50 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,17 @@ void	write_bus(uint16_t addr, uint8_t data)
 		printf("BUS (write): %04X not implemented\n", addr);
 		exit(EXIT_FAILURE);
 	}
-	else if (addr < 0x4020) // NES APU and I/O registers
+	else if (addr < 0x4020) // APU and I/O functionality that is normally disabled. See CPU Test Mode
 	{
 		printf("BUS (write): %04X not implemented\n", addr);
 		exit(EXIT_FAILURE);
 	}
-	else if (addr < 0x8000) // idk
+	else if (addr < 0x6000) // Expansion / mappers
 	{
 		printf("BUS (write): %04X not implemented\n", addr);
 		exit(EXIT_FAILURE);
 	}
-	else if (addr < 0x8000) // idk
+	else if (addr < 0x8000) // SRAM de la cartouche (sauvegardes)
 	{
 		printf("BUS (write): %04X not implemented\n", addr);
 		exit(EXIT_FAILURE);
@@ -88,17 +88,17 @@ uint8_t	read_bus(uint16_t addr)
 		printf("BUS (write): %04X not implemented\n", addr);
 		exit(EXIT_FAILURE);
 	}
-	else if (addr < 0x4020) // NES APU and I/O registers
+	else if (addr < 0x4020) // APU and I/O functionality that is normally disabled. See CPU Test Mode
 	{
 		printf("BUS (write): %04X not implemented\n", addr);
 		exit(EXIT_FAILURE);
 	}
-	else if (addr < 0x8000) // idk
+	else if (addr < 0x6000) // Expansion / mappers
 	{
 		printf("BUS (write): %04X not implemented\n", addr);
 		exit(EXIT_FAILURE);
 	}
-	else if (addr < 0x8000) // idk
+	else if (addr < 0x8000) // SRAM de la cartouche (sauvegardes)
 	{
 		printf("BUS (write): %04X not implemented\n", addr);
 		exit(EXIT_FAILURE);
