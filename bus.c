@@ -3,19 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   bus.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchalmel <gchalmel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 22:02:53 by gabch             #+#    #+#             */
-/*   Updated: 2026/02/23 20:18:42 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/22 16:45:03 by gchalmel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bus.h"
 #include "rom.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 void	write_bus(uint16_t addr, uint8_t data)
 {
+	(void)data;
 	if (addr < 0x0800) // 2KB internal RAM
 	{
 		printf("BUS (write): %04X not implemented\n", addr);
@@ -31,7 +33,7 @@ void	write_bus(uint16_t addr, uint8_t data)
 		printf("BUS (write): %04X not implemented\n", addr);
 		exit(EXIT_FAILURE);
 	}
-	else if (addr < 0x4000) // Mirrors of $2000–$2007 (repeats every 8 bytes) 
+	else if (addr < 0x4000) // Mirrors of $2000–$2007 (repeats every 8 bytes)
 	{
 		printf("BUS (write): %04X not implemented\n", addr);
 		exit(EXIT_FAILURE);
@@ -58,7 +60,7 @@ void	write_bus(uint16_t addr, uint8_t data)
 	}
 	if (addr <= 0xFFFF)
 	{
-		printf("BUS (write): cant write ROM\n", addr);
+		printf("BUS (write): %04X cant write ROM\n", addr);
 		exit(EXIT_FAILURE);
 	}
 }
@@ -80,7 +82,7 @@ uint8_t	read_bus(uint16_t addr)
 		printf("BUS (write): %04X not implemented\n", addr);
 		exit(EXIT_FAILURE);
 	}
-	else if (addr < 0x4000) // Mirrors of $2000–$2007 (repeats every 8 bytes) 
+	else if (addr < 0x4000) // Mirrors of $2000–$2007 (repeats every 8 bytes)
 	{
 		printf("BUS (write): %04X not implemented\n", addr);
 		exit(EXIT_FAILURE);
@@ -105,6 +107,6 @@ uint8_t	read_bus(uint16_t addr)
 		printf("BUS (write): %04X not implemented\n", addr);
 		exit(EXIT_FAILURE);
 	}
-	if (addr <= 0xFFFF)
+	else if (addr <= 0xFFFF)
 		return (read_rom(addr));
 }

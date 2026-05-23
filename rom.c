@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rom.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchalmel <gchalmel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 16:13:42 by gabch             #+#    #+#             */
-/*   Updated: 2026/02/23 20:17:15 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/22 16:43:27 by gchalmel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	init_memory_rom(const char *name)
 	FILE	*fp;
 	long	len_rom;
 
+	printf("Initialisation de la memoire ROM");
 	fp = fopen(name, "rb");
 	if (fp == NULL)
 	{
