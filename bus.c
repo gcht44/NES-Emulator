@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bus.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchalmel <gchalmel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 22:02:53 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/22 16:45:03 by gchalmel         ###   ########.fr       */
+/*   Updated: 2026/05/23 19:45:05 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,17 @@ void	write_bus(uint16_t addr, uint8_t data)
 		printf("BUS (write): %04X not implemented\n", addr);
 		exit(EXIT_FAILURE);
 	}
-	else if (addr < 0x6000) // Expansion / mappers
+	else if (addr < 0x6000) // idk
 	{
 		printf("BUS (write): %04X not implemented\n", addr);
 		exit(EXIT_FAILURE);
 	}
-	else if (addr < 0x8000) // SRAM de la cartouche (sauvegardes)
+	else if (addr < 0x8000) // RAM
 	{
-		printf("BUS (write): %04X not implemented\n", addr);
+		printf("BUS (write): %04X Cartridge RAM not implemented\n", addr);
 		exit(EXIT_FAILURE);
 	}
-	if (addr <= 0xFFFF)
+	else // ROM with mappers register
 	{
 		printf("BUS (write): %04X cant write ROM\n", addr);
 		exit(EXIT_FAILURE);
@@ -107,6 +107,6 @@ uint8_t	read_bus(uint16_t addr)
 		printf("BUS (write): %04X not implemented\n", addr);
 		exit(EXIT_FAILURE);
 	}
-	else if (addr <= 0xFFFF)
+	else
 		return (read_rom(addr));
 }

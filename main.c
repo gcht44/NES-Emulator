@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchalmel <gchalmel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 16:03:00 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/22 16:43:18 by gchalmel         ###   ########.fr       */
+/*   Updated: 2026/05/23 19:54:04 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ int	main(void)
 
 	if (init_memory_rom("ROMS/test_roms/cpu_instr/01-basics.nes"))
 	{
-		printf("Initialisation de la memoire ROM: ERR");
+		printf("Initialisation de la memoire ROM: ERR\n");
 		return (0);
 	}
-	printf("Initialisation de la memoire ROM: OK");
+	printf("Initialisation de la memoire ROM: OK\n");
 	init_cpu(&cpu);
 	return (0);
 }
