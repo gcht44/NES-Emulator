@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:00:44 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/25 19:32:10 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/25 19:37:31 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,8 @@ void	dec(t_cpu *cpu, t_am am);
 void	dex(t_cpu *cpu);
 void	dey(t_cpu *cpu);
 void	eor(t_cpu *cpu, t_am am);
+void	inc(t_cpu *cpu, t_am am);
+void	inx(t_cpu *cpu);
+void	iny(t_cpu *cpu);
 
 #endif

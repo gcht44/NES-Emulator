@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/25 19:31:40 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/25 19:37:15 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,4 +178,28 @@ void	eor(t_cpu *cpu, t_am am)
 	cpu->sr |= DEFINE_Z(a_tmp);
 	cpu->sr |= DEFINE_N(a_tmp);
 	cpu->a = a_tmp & 0xFF;
+}
+
+void	inc(t_cpu *cpu, t_am am)
+{
+	uint8_t tmp = am.value + 1;
+	cpu->sr |= DEFINE_Z(tmp);
+	cpu->sr |= DEFINE_N(tmp);
+	write_bus(am.addr_return, tmp);
+}
+
+void	inx(t_cpu *cpu)
+{
+	uint8_t tmp = cpu->x + 1;
+	cpu->sr |= DEFINE_Z(tmp);
+	cpu->sr |= DEFINE_N(tmp);
+	cpu->x = tmp;
+}
+
+void	iny(t_cpu *cpu)
+{
+	uint8_t tmp = cpu->y + 1;
+	cpu->sr |= DEFINE_Z(tmp);
+	cpu->sr |= DEFINE_N(tmp);
+	cpu->y = tmp;
 }
