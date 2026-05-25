@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/25 19:21:18 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/25 19:26:01 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ void	dec(t_cpu *cpu, t_am am)
 	write_bus(am.addr_return, tmp);
 }
 
-void	dex(t_cpu *cpu, t_am am)
+void	dex(t_cpu *cpu)
 {
 	uint8_t tmp = cpu->x - 1;
 	cpu->sr |= DEFINE_Z(tmp);
@@ -164,7 +164,7 @@ void	dex(t_cpu *cpu, t_am am)
 	cpu->x = tmp;
 }
 
-void	dey(t_cpu *cpu, t_am am)
+void	dey(t_cpu *cpu)
 {
 	uint8_t tmp = cpu->y - 1;
 	cpu->sr |= DEFINE_Z(tmp);

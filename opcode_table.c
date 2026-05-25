@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:19:17 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/25 19:24:07 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/25 19:26:06 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,9 @@ void	exec_opcode(t_cpu *cpu)
 		case 0x7D:
 			adc(cpu, absolute_x(cpu), CY_FLAG(cpu->sr));
 			break;
+		case 0x88:
+			dey(cpu);
+			break;
 		case 0x90:
 			bcc(cpu);
 			break;
@@ -145,6 +148,9 @@ void	exec_opcode(t_cpu *cpu)
 			break;
 		case 0xC9:
 			cmp(cpu, immediate(cpu));
+			break;
+		case 0xCA:
+			dex(cpu);
 			break;
 		case 0xCC:
 			cpy(cpu, absolute(cpu));
