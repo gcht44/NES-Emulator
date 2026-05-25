@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:19:17 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/25 16:39:02 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/25 16:49:11 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,28 +23,28 @@ void	exec_opcode(t_cpu *cpu)
 	switch (opcode)
 	{
 		case 0x61:
-			adc(&cpu->a, indirect_x(cpu), CY_FLAG(cpu->sr));
+			adc(cpu, indirect_x(cpu), CY_FLAG(cpu->sr));
 			break;
 		case 0x65:
-			adc(&cpu->a, zero_page(cpu), CY_FLAG(cpu->sr));
+			adc(cpu, zero_page(cpu), CY_FLAG(cpu->sr));
 			break;
 		case 0x69:
-			adc(&cpu->a, immediate(cpu), CY_FLAG(cpu->sr));
+			adc(cpu, immediate(cpu), CY_FLAG(cpu->sr));
 			break;
 		case 0x6D:
-			adc(&cpu->a, absolute(cpu), CY_FLAG(cpu->sr));
+			adc(cpu, absolute(cpu), CY_FLAG(cpu->sr));
 			break;
 		case 0x71:
-			adc(&cpu->a, indirect_y(cpu), CY_FLAG(cpu->sr));
+			adc(cpu, indirect_y(cpu), CY_FLAG(cpu->sr));
 			break;
 		case 0x75:
-			adc(&cpu->a, zero_page_x(cpu), CY_FLAG(cpu->sr));
+			adc(cpu, zero_page_x(cpu), CY_FLAG(cpu->sr));
 			break;
 		case 0x79:
-			adc(&cpu->a, absolute_y(cpu), CY_FLAG(cpu->sr));
+			adc(cpu, absolute_y(cpu), CY_FLAG(cpu->sr));
 			break;
 		case 0x7D:
-			adc(&cpu->a, absolute_x(cpu), CY_FLAG(cpu->sr));
+			adc(cpu, absolute_x(cpu), CY_FLAG(cpu->sr));
 			break;
 
 		default:
