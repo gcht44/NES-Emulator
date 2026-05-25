@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:00:44 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/25 18:20:44 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/25 18:29:51 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,8 @@ void	beq(t_cpu *cpu);
 void	bit(t_cpu *cpu, t_am am);
 void	bmi(t_cpu *cpu);
 void	bne(t_cpu *cpu);
+void	bpl(t_cpu *cpu);
+void	bvc(t_cpu *cpu);
+void	bvs(t_cpu *cpu);
 
 #endif

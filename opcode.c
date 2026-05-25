@@ -6,12 +6,14 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/25 18:20:11 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/25 18:29:24 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "opcode.h"
 #include "bus.h"
+
+// OPCODE POUR PLUS TARD: BRK
 
 // A rajouter Overflow flag
 void	adc(t_cpu *cpu, t_am am, uint8_t c)
@@ -83,5 +85,26 @@ void	bne(t_cpu *cpu)
 {
 	int8_t	offset = read_bus(cpu->pc++);
 	if (!Z_FLAG(cpu->sr))
+		cpu->pc += offset;
+}
+
+void	bpl(t_cpu *cpu)
+{
+	int8_t	offset = read_bus(cpu->pc++);
+	if (!N_FLAG(cpu->sr))
+		cpu->pc += offset;
+}
+
+void	bvc(t_cpu *cpu)
+{
+	int8_t	offset = read_bus(cpu->pc++);
+	if (!O_FLAG(cpu->sr))
+		cpu->pc += offset;
+}
+
+void	bvs(t_cpu *cpu)
+{
+	int8_t	offset = read_bus(cpu->pc++);
+	if (O_FLAG(cpu->sr))
 		cpu->pc += offset;
 }
