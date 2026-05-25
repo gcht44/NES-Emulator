@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:19:17 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/25 20:45:03 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/26 01:04:25 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ void	exec_opcode(t_cpu *cpu)
 			break;
 		case 0x06:
 			asl(cpu, zero_page(cpu), 1);
+			break;
+		case 0x08:
+			pha(cpu);
 			break;
 		case 0x09:
 			ora(cpu, immediate(cpu));
@@ -89,6 +92,9 @@ void	exec_opcode(t_cpu *cpu)
 		case 0x25:
 			and(cpu, zero_page(cpu));
 			break;
+		case 0x28: // plp y a des trucs a revoir au niveau du i qui doit etre delay
+			plp(cpu);
+			break;
 		case 0x29:
 			and(cpu, immediate(cpu));
 			break;
@@ -121,6 +127,9 @@ void	exec_opcode(t_cpu *cpu)
 			break;
 		case 0x46:
 			lsr(cpu, zero_page(cpu), 1);
+			break;
+		case 0x48:
+			pha(cpu);
 			break;
 		case 0x49:
 			eor(cpu, immediate(cpu));
@@ -168,6 +177,9 @@ void	exec_opcode(t_cpu *cpu)
 			break;
 		case 0x65:
 			adc(cpu, zero_page(cpu), CY_FLAG(cpu->sr));
+			break;
+		case 0x68:
+			pla(cpu);
 			break;
 		case 0x69:
 			adc(cpu, immediate(cpu), CY_FLAG(cpu->sr));
