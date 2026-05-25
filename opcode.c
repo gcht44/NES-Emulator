@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/25 18:29:24 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/25 18:43:14 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,4 +107,19 @@ void	bvs(t_cpu *cpu)
 	int8_t	offset = read_bus(cpu->pc++);
 	if (O_FLAG(cpu->sr))
 		cpu->pc += offset;
+}
+
+void	clc(t_cpu *cpu)
+{
+	cpu->sr &= 0xFE;
+}
+
+void	cld(t_cpu *cpu)
+{
+	cpu->sr &= 0xF7;
+}
+
+void	clv(t_cpu *cpu)
+{
+	cpu->sr &= 0xBF;
 }

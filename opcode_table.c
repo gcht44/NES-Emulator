@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:19:17 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/25 18:31:37 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/25 18:44:02 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,16 @@ void	exec_opcode(t_cpu *cpu)
 {
 	uint8_t	opcode = read_bus(cpu->pc++);
 	t_am	am;
-	
+	int		clear_it = -1;
+
+	if (clear_it == 0)
+	{
+		cpu->sr &= 0xFB;
+		clear_it = -1;
+	}
+	if (clear_it > 0)
+		clear_it--;
+
 	switch (opcode)
 	{
 		case 0x06:
@@ -37,6 +46,9 @@ void	exec_opcode(t_cpu *cpu)
 			break;
 		case 0x16:
 			asl(cpu, zero_page_x(cpu), 1);
+			break;
+		case 0x18:
+			clc(cpu);
 			break;
 		case 0x1E:
 			asl(cpu, absolute_x(cpu), 1);
@@ -77,6 +89,9 @@ void	exec_opcode(t_cpu *cpu)
 		case 0x50:
 			bvc(cpu);
 			break;
+		case 0x58:
+			clear_it = 1;
+			break;
 		case 0x61:
 			adc(cpu, indirect_x(cpu), CY_FLAG(cpu->sr));
 			break;
@@ -110,8 +125,14 @@ void	exec_opcode(t_cpu *cpu)
 		case 0xB0:
 			bcs(cpu);
 			break;
+		case 0xB8:
+			clv(cpu);
+			break;
 		case 0xD0:
 			bne(cpu);
+			break;
+		case 0xD8:
+			cld(cpu);
 			break;
 		case 0xF0:
 			beq(cpu);
