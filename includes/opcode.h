@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:00:44 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/25 20:15:36 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/25 20:28:43 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct s_am
 t_am	immediate(t_cpu *cpu);
 t_am	zero_page(t_cpu *cpu);
 t_am	zero_page_x(t_cpu *cpu);
+t_am	zero_page_y(t_cpu *cpu);
 t_am	absolute(t_cpu *cpu);
 t_am	absolute_x(t_cpu *cpu);
 t_am	absolute_y(t_cpu *cpu);
@@ -75,5 +76,8 @@ void	inx(t_cpu *cpu);
 void	iny(t_cpu *cpu);
 void	jmp(t_cpu *cpu, t_am am);
 void	jsr(t_cpu *cpu, t_am am);
+void	lda(t_cpu *cpu, t_am am);
+void	ldx(t_cpu *cpu, t_am am);
+void	ldy(t_cpu *cpu, t_am am);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:19:17 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/25 20:16:54 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/25 20:32:15 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,11 +158,65 @@ void	exec_opcode(t_cpu *cpu)
 		case 0x90:
 			bcc(cpu);
 			break;
+		case 0xA0:
+			ldy(cpu, immediate(cpu));
+			break;
+		case 0xA1:
+			lda(cpu, indirect_x(cpu));
+			break;
+		case 0xA2:
+			ldx(cpu, immediate(cpu));
+			break;
+		case 0xA4:
+			ldy(cpu, zero_page(cpu));
+			break;
+		case 0xA5:
+			lda(cpu, zero_page(cpu));
+			break;
+		case 0xA6:
+			ldx(cpu, zero_page(cpu));
+			break;
+		case 0xA9:
+			lda(cpu, immediate(cpu));
+			break;
+		case 0xAC:
+			ldy(cpu, absolute(cpu));
+			break;
+		case 0xAD:
+			lda(cpu, absolute(cpu));
+			break;
+		case 0xAE:
+			ldx(cpu, absolute(cpu));
+			break;
 		case 0xB0:
 			bcs(cpu);
 			break;
+		case 0xB1:
+			lda(cpu, indirect_y(cpu));
+			break;
+		case 0xB4:
+			ldy(cpu, zero_page_x(cpu));
+			break;
+		case 0xB5:
+			lda(cpu, zero_page_x(cpu));
+			break;
+		case 0xB6:
+			ldx(cpu, zero_page_y(cpu));
+			break;
 		case 0xB8:
 			clv(cpu);
+			break;
+		case 0xB9:
+			lda(cpu, absolute_y(cpu));
+			break;
+		case 0xBC:
+			ldy(cpu, absolute_x(cpu));
+			break;
+		case 0xBD:
+			lda(cpu, absolute_x(cpu));
+			break;
+		case 0xBE:
+			ldx(cpu, absolute_y(cpu));
 			break;
 		case 0xC0:
 			cpy(cpu, immediate(cpu));

@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/25 20:15:06 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/25 20:19:30 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,4 +215,25 @@ void	jsr(t_cpu *cpu, t_am am)
 	push_stack(cpu, (cpu->pc & 0xFF00) >> 8);
 	push_stack(cpu, cpu->pc & 0x00FF);
 	cpu->pc = am.addr_return;
+}
+
+void	lda(t_cpu *cpu, t_am am)
+{
+	cpu->a = am.value;
+	cpu->sr |= DEFINE_Z(cpu->a);
+	cpu->sr |= DEFINE_N(cpu->a);
+}
+
+void	ldx(t_cpu *cpu, t_am am)
+{
+	cpu->x = am.value;
+	cpu->sr |= DEFINE_Z(cpu->x);
+	cpu->sr |= DEFINE_N(cpu->x);
+}
+
+void	ldy(t_cpu *cpu, t_am am)
+{
+	cpu->y = am.value;
+	cpu->sr |= DEFINE_Z(cpu->y);
+	cpu->sr |= DEFINE_N(cpu->y);
 }
