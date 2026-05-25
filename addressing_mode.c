@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 21:05:43 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/25 19:48:03 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/25 20:27:57 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,14 @@ t_am	zero_page_x(t_cpu *cpu)
 {
 	t_am am;
 	am.addr_return = (read_bus(cpu->pc++) + cpu->x) & 0xFF;
+	am.value = read_bus(am.addr_return);
+	return (am);
+}
+
+t_am	zero_page_y(t_cpu *cpu)
+{
+	t_am am;
+	am.addr_return = (read_bus(cpu->pc++) + cpu->y) & 0xFF;
 	am.value = read_bus(am.addr_return);
 	return (am);
 }
