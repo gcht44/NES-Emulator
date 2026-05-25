@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:19:17 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/25 16:49:11 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/25 16:56:47 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,30 @@ void	exec_opcode(t_cpu *cpu)
 	
 	switch (opcode)
 	{
+		case 0x21:
+			and(cpu, indirect_x(cpu));
+			break;
+		case 0x25:
+			and(cpu, zero_page(cpu));
+			break;
+		case 0x29:
+			and(cpu, immediate(cpu));
+			break;
+		case 0x2D:
+			and(cpu, absolute(cpu));
+			break;
+		case 0x31:
+			and(cpu, indirect_y(cpu));
+			break;
+		case 0x35:
+			and(cpu, zero_page_x(cpu));
+			break;
+		case 0x39:
+			and(cpu, absolute_y(cpu));
+			break;
+		case 0x3D:
+			and(cpu, absolute_x(cpu));
+			break;
 		case 0x61:
 			adc(cpu, indirect_x(cpu), CY_FLAG(cpu->sr));
 			break;

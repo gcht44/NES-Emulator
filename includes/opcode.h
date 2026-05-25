@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:00:44 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/25 16:47:41 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/25 16:53:27 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ uint8_t	indirect_x(t_cpu *cpu);
 uint8_t	indirect_y(t_cpu *cpu);
 
 // OPCODE
-void	adc(uint8_t *reg_A, uint8_t value, uint8_t c);
+void	adc(t_cpu *cpu, uint8_t value, uint8_t c);
+void	and(t_cpu *cpu, uint8_t value);
 
 #endif
