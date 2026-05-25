@@ -6,11 +6,12 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/25 17:48:48 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/25 17:55:52 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "opcode.h"
+#include "bus.h"
 
 // A rajouter Overflow flag
 void	adc(t_cpu *cpu, t_am am, uint8_t c)
@@ -30,10 +31,15 @@ void	and(t_cpu *cpu, t_am am)
 	cpu->a = a_tmp & 0xFF;
 }
 
-/*void	asl(t_cpu *cpu, uint8_t value)
+void	asl(t_cpu *cpu, t_am am, int dest_is_mem)
 {
-	uint16_t tmp = value << ;
+
+	uint16_t tmp = am.value << 1;
+	cpu->sr |= (tmp & 0x100) > 0;
 	cpu->sr |= DEFINE_Z(tmp);
 	cpu->sr |= DEFINE_N(tmp);
-	cpu->a = tmp & 0xFF;
-}*/
+	if (dest_is_mem)
+		write_bus(am.addr_return, tmp & 0xFF);
+	else
+		cpu->a = tmp & 0xFF;
+}
