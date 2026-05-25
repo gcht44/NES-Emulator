@@ -6,12 +6,13 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/25 19:37:15 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/25 20:15:06 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "opcode.h"
 #include "bus.h"
+#include "stack.h"
 
 // OPCODE POUR PLUS TARD: BRK
 
@@ -202,4 +203,16 @@ void	iny(t_cpu *cpu)
 	cpu->sr |= DEFINE_Z(tmp);
 	cpu->sr |= DEFINE_N(tmp);
 	cpu->y = tmp;
+}
+
+void	jmp(t_cpu *cpu, t_am am)
+{
+	cpu->pc = am.addr_return;
+}
+
+void	jsr(t_cpu *cpu, t_am am)
+{
+	push_stack(cpu, (cpu->pc & 0xFF00) >> 8);
+	push_stack(cpu, cpu->pc & 0x00FF);
+	cpu->pc = am.addr_return;
 }

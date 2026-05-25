@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:19:17 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/25 19:40:02 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/25 20:16:54 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,9 @@ void	exec_opcode(t_cpu *cpu)
 		case 0x1E:
 			asl(cpu, absolute_x(cpu), 1);
 			break;
+		case 0x20:
+			jsr(cpu, absolute(cpu));
+			break;
 		case 0x21:
 			and(cpu, indirect_x(cpu));
 			break;
@@ -95,6 +98,9 @@ void	exec_opcode(t_cpu *cpu)
 		case 0x49:
 			eor(cpu, immediate(cpu));
 			break;
+		case 0x4C:
+			jmp(cpu, absolute(cpu));
+			break;
 		case 0x4D:
 			eor(cpu, absolute(cpu));
 			break;
@@ -124,6 +130,9 @@ void	exec_opcode(t_cpu *cpu)
 			break;
 		case 0x69:
 			adc(cpu, immediate(cpu), CY_FLAG(cpu->sr));
+			break;
+		case 0x6C:
+			jmp(cpu, indirect(cpu));
 			break;
 		case 0x6D:
 			adc(cpu, absolute(cpu), CY_FLAG(cpu->sr));
