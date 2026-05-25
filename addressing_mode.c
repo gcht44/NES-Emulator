@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 21:05:43 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/25 17:47:38 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/25 19:46:29 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,13 @@ t_am	indirect_y(t_cpu *cpu)
 	uint16_t ptr = read_bus(cpu->pc++);
 	am.addr_return = (read_bus(ptr) | (read_bus((ptr + 1) & 0xFF) << 8)) + cpu->y;
 	am.value = read_bus(am.addr_return);
+	return (am);
+}
+
+t_am	indirect(t_cpu *cpu)
+{
+	t_am	am;
+	uint16_t addr = read_bus(cpu->pc++) | (read_bus(cpu->pc++) << 8);
+	am.value = read_bus(addr) | (read_bus(addr + 1) << 8);
 	return (am);
 }

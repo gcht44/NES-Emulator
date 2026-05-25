@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:00:44 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/25 19:37:31 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/25 19:46:54 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ t_am	absolute_x(t_cpu *cpu);
 t_am	absolute_y(t_cpu *cpu);
 t_am	indirect_x(t_cpu *cpu);
 t_am	indirect_y(t_cpu *cpu);
+t_am	indirect(t_cpu *cpu);
 
 // OPCODE
 void	adc(t_cpu *cpu, t_am am, uint8_t c);
