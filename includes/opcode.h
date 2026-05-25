@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:00:44 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/25 16:53:27 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/25 17:49:19 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 
 # include <stdint.h>
 # include "cpu.h"
+
+typedef struct s_am
+{
+	uint16_t	addr_return;
+	uint8_t		value;
+} t_am;
+
 
 # define CY_FLAG(sr) sr & 0x01       // Carry flag
 # define Z_FLAG(sr)  (sr & 0x2) >> 1 // Zero Flag
@@ -30,17 +37,17 @@
 # define DEFINE_N(value) ((value & 0x80) > 0x00 ? 1 : 0) << 7
 
 // ADDRESSING MODE
-uint8_t	immediate(t_cpu *cpu);
-uint8_t	zero_page(t_cpu *cpu);
-uint8_t	zero_page_x(t_cpu *cpu);
-uint8_t	absolute(t_cpu *cpu);
-uint8_t	absolute_x(t_cpu *cpu);
-uint8_t	absolute_y(t_cpu *cpu);
-uint8_t	indirect_x(t_cpu *cpu);
-uint8_t	indirect_y(t_cpu *cpu);
+t_am	immediate(t_cpu *cpu);
+t_am	zero_page(t_cpu *cpu);
+t_am	zero_page_x(t_cpu *cpu);
+t_am	absolute(t_cpu *cpu);
+t_am	absolute_x(t_cpu *cpu);
+t_am	absolute_y(t_cpu *cpu);
+t_am	indirect_x(t_cpu *cpu);
+t_am	indirect_y(t_cpu *cpu);
 
 // OPCODE
-void	adc(t_cpu *cpu, uint8_t value, uint8_t c);
-void	and(t_cpu *cpu, uint8_t value);
+void	adc(t_cpu *cpu, t_am am, uint8_t c);
+void	and(t_cpu *cpu, t_am am);
 
 #endif
