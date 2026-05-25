@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:19:17 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/25 20:38:17 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/25 20:45:03 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,25 @@ void	exec_opcode(t_cpu *cpu)
 
 	switch (opcode)
 	{
+		case 0x01:
+			ora(cpu, indirect_x(cpu));
+			break;
+		case 0x05:
+			ora(cpu, zero_page(cpu));
+			break;
 		case 0x06:
 			asl(cpu, zero_page(cpu), 1);
+			break;
+		case 0x09:
+			ora(cpu, immediate(cpu));
 			break;
 		case 0x0A:
 			am.value = cpu->a;
 			am.addr_return = 0;
 			asl(cpu, am, 0);
+			break;
+		case 0x0D:
+			ora(cpu, absolute(cpu));
 			break;
 		case 0x0E:
 			asl(cpu, absolute(cpu), 1);
@@ -44,11 +56,23 @@ void	exec_opcode(t_cpu *cpu)
 		case 0x10:
 			bpl(cpu);
 			break;
+		case 0x11:
+			ora(cpu, indirect_y(cpu));
+			break;
+		case 0x15:
+			ora(cpu, zero_page_x(cpu));
+			break;
 		case 0x16:
 			asl(cpu, zero_page_x(cpu), 1);
 			break;
 		case 0x18:
 			clc(cpu);
+			break;
+		case 0x19:
+			ora(cpu, absolute_y(cpu));
+			break;
+		case 0x1D:
+			ora(cpu, absolute_x(cpu));
 			break;
 		case 0x1E:
 			asl(cpu, absolute_x(cpu), 1);
@@ -303,6 +327,8 @@ void	exec_opcode(t_cpu *cpu)
 			break;
 		case 0xE8:
 			inx(cpu);
+			break;
+		case 0xEA: // NOP
 			break;
 		case 0xEC:
 			cpx(cpu, absolute(cpu));

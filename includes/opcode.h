@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:00:44 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/25 20:35:24 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/25 20:42:00 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,6 @@ void	lda(t_cpu *cpu, t_am am);
 void	ldx(t_cpu *cpu, t_am am);
 void	ldy(t_cpu *cpu, t_am am);
 void	lsr(t_cpu *cpu, t_am am, int dest_is_mem);
+void	ora(t_cpu *cpu, t_am am);
 
 #endif

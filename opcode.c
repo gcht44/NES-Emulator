@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/25 20:34:39 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/25 20:41:52 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,4 +249,12 @@ void	lsr(t_cpu *cpu, t_am am, int dest_is_mem)
 		write_bus(am.addr_return, tmp & 0xFF);
 	else
 		cpu->a = tmp & 0xFF;
+}
+
+void	ora(t_cpu *cpu, t_am am)
+{
+	uint16_t a_tmp = cpu->a | am.value;
+	cpu->sr |= DEFINE_Z(a_tmp);
+	cpu->sr |= DEFINE_N(a_tmp);
+	cpu->a = a_tmp & 0xFF;
 }
