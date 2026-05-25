@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/25 19:08:14 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/25 19:21:18 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,24 +126,48 @@ void	clv(t_cpu *cpu)
 
 void	cmp(t_cpu *cpu, t_am am)
 {
-	uint8_t a_tmp = cpu->a - am.value;
+	uint16_t a_tmp = cpu->a - am.value;
 	cpu->sr |= DEFINE_Z(a_tmp);
 	cpu->sr |= DEFINE_N(a_tmp);
-	cpu->sr |= DEFINE_CY(a_tmp);
+	cpu->sr |= cpu->a >= am.value;
 }
 
 void	cpx(t_cpu *cpu, t_am am)
 {
-	uint8_t tmp = cpu->x - am.value;
+	uint16_t tmp = cpu->x - am.value;
 	cpu->sr |= DEFINE_Z(tmp);
 	cpu->sr |= DEFINE_N(tmp);
-	cpu->sr |= DEFINE_CY(tmp);
+	cpu->sr |= cpu->x >= am.value;
 }
 
 void	cpy(t_cpu *cpu, t_am am)
 {
-	uint8_t tmp = cpu->y - am.value;
+	uint16_t tmp = cpu->y - am.value;
 	cpu->sr |= DEFINE_Z(tmp);
 	cpu->sr |= DEFINE_N(tmp);
-	cpu->sr |= DEFINE_CY(tmp);
+	cpu->sr |= cpu->y >= am.value;
+}
+
+void	dec(t_cpu *cpu, t_am am)
+{
+	uint8_t tmp = am.value - 1;
+	cpu->sr |= DEFINE_Z(tmp);
+	cpu->sr |= DEFINE_N(tmp);
+	write_bus(am.addr_return, tmp);
+}
+
+void	dex(t_cpu *cpu, t_am am)
+{
+	uint8_t tmp = cpu->x - 1;
+	cpu->sr |= DEFINE_Z(tmp);
+	cpu->sr |= DEFINE_N(tmp);
+	cpu->x = tmp;
+}
+
+void	dey(t_cpu *cpu, t_am am)
+{
+	uint8_t tmp = cpu->y - 1;
+	cpu->sr |= DEFINE_Z(tmp);
+	cpu->sr |= DEFINE_N(tmp);
+	cpu->y = tmp;
 }

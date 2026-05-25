@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:19:17 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/25 19:14:13 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/25 19:24:07 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,9 @@ void	exec_opcode(t_cpu *cpu)
 		case 0xC5:
 			cmp(cpu, zero_page(cpu));
 			break;
+		case 0xC6:
+			dec(cpu, zero_page(cpu));
+			break;
 		case 0xC9:
 			cmp(cpu, immediate(cpu));
 			break;
@@ -148,6 +151,9 @@ void	exec_opcode(t_cpu *cpu)
 			break;
 		case 0xCD:
 			cmp(cpu, absolute(cpu));
+			break;
+		case 0xCE:
+			dec(cpu, absolute(cpu));
 			break;
 		case 0xD0:
 			bne(cpu);
@@ -158,6 +164,9 @@ void	exec_opcode(t_cpu *cpu)
 		case 0xD5:
 			cmp(cpu, zero_page_x(cpu));
 			break;
+		case 0xD6:
+			dec(cpu, zero_page_x(cpu));
+			break;
 		case 0xD8:
 			cld(cpu);
 			break;
@@ -166,6 +175,9 @@ void	exec_opcode(t_cpu *cpu)
 			break;
 		case 0xDD:
 			cmp(cpu, absolute_x(cpu));
+			break;
+		case 0xDE:
+			dec(cpu, absolute_x(cpu));
 			break;
 		case 0xE0:
 			cpx(cpu, immediate(cpu));
