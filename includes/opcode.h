@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:00:44 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/26 01:14:24 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/26 01:27:28 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,7 @@ void	pha(t_cpu *cpu);
 void	php(t_cpu *cpu);
 void	pla(t_cpu *cpu);
 void	plp(t_cpu *cpu);
+void	rol(t_cpu *cpu, t_am am, int dest_is_mem);
+void	ror(t_cpu *cpu, t_am am, int dest_is_mem);
 
 #endif

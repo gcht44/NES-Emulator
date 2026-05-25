@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/26 01:13:42 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/26 01:24:12 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,4 +282,32 @@ void	pla(t_cpu *cpu)
 void	plp(t_cpu *cpu)
 {
 	cpu->sr = pop_stack(cpu);
+}
+
+void	rol(t_cpu *cpu, t_am am, int dest_is_mem)
+{
+	uint8_t		old_cy = CY_FLAG(cpu->sr);
+	uint16_t	tmp = am.value << 1;
+	tmp |= old_cy;
+	cpu->sr |= (tmp & 0x100) > 0;
+	cpu->sr |= DEFINE_Z(tmp);
+	cpu->sr |= DEFINE_N(tmp);
+	if (dest_is_mem)
+		write_bus(am.addr_return, tmp & 0xFF);
+	else
+		cpu->a = tmp & 0xFF;
+}
+
+void	ror(t_cpu *cpu, t_am am, int dest_is_mem)
+{
+	uint8_t		new_cy = am.value & 1;
+	uint16_t	tmp = am.value >> 1;
+	tmp |= (CY_FLAG(cpu->sr) << 7);
+	cpu->sr |= new_cy;
+	cpu->sr |= DEFINE_Z(tmp);
+	cpu->sr |= DEFINE_N(tmp);
+	if (dest_is_mem)
+		write_bus(am.addr_return, tmp & 0xFF);
+	else
+		cpu->a = tmp & 0xFF;
 }

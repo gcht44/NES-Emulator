@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:19:17 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/26 01:14:48 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/26 01:33:03 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,17 +92,27 @@ void	exec_opcode(t_cpu *cpu)
 		case 0x25:
 			and(cpu, zero_page(cpu));
 			break;
+		case 0x26:
+			rol(cpu, zero_page(cpu), 1);
+			break;
 		case 0x28: // plp y a des trucs a revoir au niveau du i qui doit etre delay
 			plp(cpu);
 			break;
 		case 0x29:
 			and(cpu, immediate(cpu));
 			break;
+		case 0x2A:
+			am.value = cpu->a;
+			rol(cpu, am, 0);
+			break;
 		case 0x2C:
 			bit(cpu, absolute(cpu));
 			break;
 		case 0x2D:
 			and(cpu, absolute(cpu));
+			break;
+		case 0x2E:
+			rol(cpu, absolute(cpu), 1);
 			break;
 		case 0x30:
 			bme(cpu);
@@ -113,11 +123,17 @@ void	exec_opcode(t_cpu *cpu)
 		case 0x35:
 			and(cpu, zero_page_x(cpu));
 			break;
+		case 0x36:
+			rol(cpu, zero_page_x(cpu), 1);
+			break;
 		case 0x39:
 			and(cpu, absolute_y(cpu));
 			break;
 		case 0x3D:
 			and(cpu, absolute_x(cpu));
+			break;
+		case 0x3E:
+			rol(cpu, absolute_x(cpu), 1);
 			break;
 		case 0x41:
 			eor(cpu, indirect_x(cpu));
@@ -178,17 +194,27 @@ void	exec_opcode(t_cpu *cpu)
 		case 0x65:
 			adc(cpu, zero_page(cpu), CY_FLAG(cpu->sr));
 			break;
+		case 0x66:
+			ror(cpu, zero_page(cpu), 1);
+			break;
 		case 0x68:
 			pla(cpu);
 			break;
 		case 0x69:
 			adc(cpu, immediate(cpu), CY_FLAG(cpu->sr));
 			break;
+		case 0x6A:
+			am.value = cpu->a;
+			ror(cpu, am, 0);
+			break;
 		case 0x6C:
 			jmp(cpu, indirect(cpu), 1);
 			break;
 		case 0x6D:
 			adc(cpu, absolute(cpu), CY_FLAG(cpu->sr));
+			break;
+		case 0x6E:
+			ror(cpu, absolute(cpu), 1);
 			break;
 		case 0x70:
 			bvs(cpu);
@@ -199,11 +225,17 @@ void	exec_opcode(t_cpu *cpu)
 		case 0x75:
 			adc(cpu, zero_page_x(cpu), CY_FLAG(cpu->sr));
 			break;
+		case 0x76:
+			ror(cpu, zero_page_x(cpu), 1);
+			break;
 		case 0x79:
 			adc(cpu, absolute_y(cpu), CY_FLAG(cpu->sr));
 			break;
 		case 0x7D:
 			adc(cpu, absolute_x(cpu), CY_FLAG(cpu->sr));
+			break;
+		case 0x7E:
+			ror(cpu, absolute_x(cpu), 1);
 			break;
 		case 0x88:
 			dey(cpu);
