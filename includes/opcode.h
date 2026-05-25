@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:00:44 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/23 20:14:08 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/25 16:34:33 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define OPCODE_H
 
 # include <stdint.h>
+# include "cpu.h"
 
 # define CY_FLAG(sr) sr & 0x01       // Carry flag
 # define Z_FLAG(sr)  (sr & 0x2) >> 1 // Zero Flag
@@ -28,6 +29,17 @@
 # define DEFINE_O(value) (value ^ A) & (value ^ memory) & $80
 # define DEFINE_N(value) (value & 0x80) > 0x00 ? 1 : 0
 
+// ADDRESSING MODE
+uint8_t	immediate(t_cpu *cpu);
+uint8_t	zero_page(t_cpu *cpu);
+uint8_t	zero_page_x(t_cpu *cpu);
+uint8_t	absolute(t_cpu *cpu);
+uint8_t	absolute_x(t_cpu *cpu);
+uint8_t	absolute_y(t_cpu *cpu);
+uint8_t	indirect_x(t_cpu *cpu);
+uint8_t	indirect_y(t_cpu *cpu);
 
+// OPCODE
+void	adc(uint8_t *reg_A, uint8_t value, uint8_t c);
 
 #endif
