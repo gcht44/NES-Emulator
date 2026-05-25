@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:19:17 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/25 18:13:03 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/25 18:22:36 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,23 @@ void	exec_opcode(t_cpu *cpu)
 		case 0x21:
 			and(cpu, indirect_x(cpu));
 			break;
+		case 0x24:
+			bit(cpu, zero_page(cpu));
+			break;
 		case 0x25:
 			and(cpu, zero_page(cpu));
 			break;
 		case 0x29:
 			and(cpu, immediate(cpu));
 			break;
+		case 0x2C:
+			bit(cpu, absolute(cpu));
+			break;
 		case 0x2D:
 			and(cpu, absolute(cpu));
+			break;
+		case 0x30:
+			bme(cpu);
 			break;
 		case 0x31:
 			and(cpu, indirect_y(cpu));
@@ -91,6 +100,9 @@ void	exec_opcode(t_cpu *cpu)
 			break;
 		case 0xB0:
 			bcs(cpu);
+			break;
+		case 0xD0:
+			bne(cpu);
 			break;
 		case 0xF0:
 			beq(cpu);

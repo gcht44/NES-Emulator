@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/25 18:09:49 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/25 18:20:11 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,26 @@ void	beq(t_cpu *cpu)
 {
 	int8_t	offset = read_bus(cpu->pc++);
 	if (Z_FLAG(cpu->sr))
+		cpu->pc += offset;
+}
+// overflow pas implementer
+void	bit(t_cpu *cpu, t_am am)
+{
+	uint8_t tmp = cpu->a & am.value;
+	cpu->sr |= DEFINE_Z(tmp);
+	cpu->sr |= DEFINE_N(tmp);
+}
+
+void	bmi(t_cpu *cpu)
+{
+	int8_t	offset = read_bus(cpu->pc++);
+	if (N_FLAG(cpu->sr))
+		cpu->pc += offset;
+}
+
+void	bne(t_cpu *cpu)
+{
+	int8_t	offset = read_bus(cpu->pc++);
+	if (!Z_FLAG(cpu->sr))
 		cpu->pc += offset;
 }
