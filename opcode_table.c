@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:19:17 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/25 20:32:15 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/25 20:38:17 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,14 +95,25 @@ void	exec_opcode(t_cpu *cpu)
 		case 0x45:
 			eor(cpu, zero_page(cpu));
 			break;
+		case 0x46:
+			lsr(cpu, zero_page(cpu), 1);
+			break;
 		case 0x49:
 			eor(cpu, immediate(cpu));
+			break;
+		case 0x4A:
+			am.value = cpu->a;
+			am.addr_return = 0;
+			lsr(cpu, am, 0);
 			break;
 		case 0x4C:
 			jmp(cpu, absolute(cpu));
 			break;
 		case 0x4D:
 			eor(cpu, absolute(cpu));
+			break;
+		case 0x4E:
+			lsr(cpu, absolute(cpu), 1);
 			break;
 		case 0x50:
 			bvc(cpu);
@@ -113,6 +124,9 @@ void	exec_opcode(t_cpu *cpu)
 		case 0x55:
 			eor(cpu, zero_page_x(cpu));
 			break;
+		case 0x56:
+			lsr(cpu, zero_page_x(cpu), 1);
+			break;
 		case 0x58:
 			clear_it = 1;
 			break;
@@ -121,6 +135,9 @@ void	exec_opcode(t_cpu *cpu)
 			break;
 		case 0x5D:
 			eor(cpu, absolute_x(cpu));
+			break;
+		case 0x5E:
+			lsr(cpu, absolute_x(cpu), 1);
 			break;
 		case 0x61:
 			adc(cpu, indirect_x(cpu), CY_FLAG(cpu->sr));
