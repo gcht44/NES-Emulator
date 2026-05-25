@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:00:44 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/26 00:56:58 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/26 01:14:24 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	eor(t_cpu *cpu, t_am am);
 void	inc(t_cpu *cpu, t_am am);
 void	inx(t_cpu *cpu);
 void	iny(t_cpu *cpu);
-void	jmp(t_cpu *cpu, t_am am);
+void	jmp(t_cpu *cpu, t_am am, int is_indirect);
 void	jsr(t_cpu *cpu, t_am am);
 void	lda(t_cpu *cpu, t_am am);
 void	ldx(t_cpu *cpu, t_am am);
