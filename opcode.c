@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/25 17:55:52 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/25 18:09:49 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,25 @@ void	asl(t_cpu *cpu, t_am am, int dest_is_mem)
 		write_bus(am.addr_return, tmp & 0xFF);
 	else
 		cpu->a = tmp & 0xFF;
+}
+
+void	bcc(t_cpu *cpu)
+{
+	int8_t	offset = read_bus(cpu->pc++);
+	if (!CY_FLAG(cpu->sr))
+		cpu->pc += offset;
+}
+
+void	bcs(t_cpu *cpu)
+{
+	int8_t	offset = read_bus(cpu->pc++);
+	if (CY_FLAG(cpu->sr))
+		cpu->pc += offset;
+}
+
+void	beq(t_cpu *cpu)
+{
+	int8_t	offset = read_bus(cpu->pc++);
+	if (Z_FLAG(cpu->sr))
+		cpu->pc += offset;
 }
