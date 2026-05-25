@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:19:17 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/25 16:56:47 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/25 18:02:15 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,28 @@
 
 void	exec_opcode(t_cpu *cpu)
 {
-	uint8_t opcode = read_bus(cpu->pc++);
-	uint8_t value8bits;
-	uint16_t value16bits;
+	uint8_t	opcode = read_bus(cpu->pc++);
+	t_am	am;
 	
 	switch (opcode)
 	{
+		case 0x06:
+			asl(cpu, zero_page(cpu), 1);
+			break;
+		case 0x0A:
+			am.value = cpu->a;
+			am.addr_return = 0;
+			asl(cpu, am, 0);
+			break;
+		case 0x0E:
+			asl(cpu, absolute(cpu), 1);
+			break;
+		case 0x16:
+			asl(cpu, zero_page_x(cpu), 1);
+			break;
+		case 0x1E:
+			asl(cpu, absolute_x(cpu), 1);
+			break;
 		case 0x21:
 			and(cpu, indirect_x(cpu));
 			break;
