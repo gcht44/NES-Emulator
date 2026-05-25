@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:19:17 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/25 18:44:02 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/25 19:14:13 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,11 +128,53 @@ void	exec_opcode(t_cpu *cpu)
 		case 0xB8:
 			clv(cpu);
 			break;
+		case 0xC0:
+			cpy(cpu, immediate(cpu));
+			break;
+		case 0xC1:
+			cmp(cpu, indirect_x(cpu));
+			break;
+		case 0xC4:
+			cpy(cpu, zero_page(cpu));
+			break;
+		case 0xC5:
+			cmp(cpu, zero_page(cpu));
+			break;
+		case 0xC9:
+			cmp(cpu, immediate(cpu));
+			break;
+		case 0xCC:
+			cpy(cpu, absolute(cpu));
+			break;
+		case 0xCD:
+			cmp(cpu, absolute(cpu));
+			break;
 		case 0xD0:
 			bne(cpu);
 			break;
+		case 0xD1:
+			cmp(cpu, indirect_y(cpu));
+			break;
+		case 0xD5:
+			cmp(cpu, zero_page_x(cpu));
+			break;
 		case 0xD8:
 			cld(cpu);
+			break;
+		case 0xD9:
+			cmp(cpu, absolute_y(cpu));
+			break;
+		case 0xDD:
+			cmp(cpu, absolute_x(cpu));
+			break;
+		case 0xE0:
+			cpx(cpu, immediate(cpu));
+			break;
+		case 0xE4:
+			cpx(cpu, zero_page(cpu));
+			break;
+		case 0xEC:
+			cpx(cpu, absolute(cpu));
 			break;
 		case 0xF0:
 			beq(cpu);

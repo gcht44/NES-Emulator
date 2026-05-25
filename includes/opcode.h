@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:00:44 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/25 18:43:19 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/25 19:09:19 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,8 @@ void	bvs(t_cpu *cpu);
 void	clc(t_cpu *cpu);
 void	cld(t_cpu *cpu);
 void	clv(t_cpu *cpu);
+void	cmp(t_cpu *cpu, t_am am);
+void	cpx(t_cpu *cpu, t_am am);
+void	cpy(t_cpu *cpu, t_am am);
 
 #endif

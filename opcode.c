@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/25 18:43:14 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/25 19:08:14 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,4 +122,28 @@ void	cld(t_cpu *cpu)
 void	clv(t_cpu *cpu)
 {
 	cpu->sr &= 0xBF;
+}
+
+void	cmp(t_cpu *cpu, t_am am)
+{
+	uint8_t a_tmp = cpu->a - am.value;
+	cpu->sr |= DEFINE_Z(a_tmp);
+	cpu->sr |= DEFINE_N(a_tmp);
+	cpu->sr |= DEFINE_CY(a_tmp);
+}
+
+void	cpx(t_cpu *cpu, t_am am)
+{
+	uint8_t tmp = cpu->x - am.value;
+	cpu->sr |= DEFINE_Z(tmp);
+	cpu->sr |= DEFINE_N(tmp);
+	cpu->sr |= DEFINE_CY(tmp);
+}
+
+void	cpy(t_cpu *cpu, t_am am)
+{
+	uint8_t tmp = cpu->y - am.value;
+	cpu->sr |= DEFINE_Z(tmp);
+	cpu->sr |= DEFINE_N(tmp);
+	cpu->sr |= DEFINE_CY(tmp);
 }
