@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:19:17 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/25 19:26:06 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/25 19:34:34 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,35 @@ void	exec_opcode(t_cpu *cpu)
 		case 0x3D:
 			and(cpu, absolute_x(cpu));
 			break;
+		case 0x41:
+			eor(cpu, indirect_x(cpu));
+			break;
+		case 0x45:
+			eor(cpu, zero_page(cpu));
+			break;
+		case 0x49:
+			eor(cpu, immediate(cpu));
+			break;
+		case 0x4D:
+			eor(cpu, absolute(cpu));
+			break;
 		case 0x50:
 			bvc(cpu);
 			break;
+		case 0x51:
+			eor(cpu, indirect_y(cpu));
+			break;
+		case 0x55:
+			eor(cpu, zero_page_x(cpu));
+			break;
 		case 0x58:
 			clear_it = 1;
+			break;
+		case 0x59:
+			eor(cpu, absolute_y(cpu));
+			break;
+		case 0x5D:
+			eor(cpu, absolute_x(cpu));
 			break;
 		case 0x61:
 			adc(cpu, indirect_x(cpu), CY_FLAG(cpu->sr));
