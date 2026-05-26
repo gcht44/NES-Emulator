@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/26 20:19:39 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/26 20:33:54 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -345,4 +345,19 @@ void	sed(t_cpu *cpu)
 void	sei(t_cpu *cpu)
 {
 	cpu->sr |= 0b0100;
+}
+
+void	sta(t_cpu *cpu, t_am am)
+{
+	write_bus(am.value, cpu->a);
+}
+
+void	stx(t_cpu *cpu, t_am am)
+{
+	write_bus(am.value, cpu->x);
+}
+
+void	sty(t_cpu *cpu, t_am am)
+{
+	write_bus(am.value, cpu->y);
 }

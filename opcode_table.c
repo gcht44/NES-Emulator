@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:19:17 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/26 20:28:23 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/26 20:36:32 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -249,11 +249,32 @@ void	exec_opcode(t_cpu *cpu)
 		case 0x7E:
 			ror(cpu, absolute_x(cpu), 1);
 			break;
+		case 0x81:
+			sta(cpu, indirect_x(cpu));
+			break;
+		case 0x85:
+			sta(cpu, zero_page(cpu));
+			break;
 		case 0x88:
 			dey(cpu);
 			break;
+		case 0x8D:
+			sta(cpu, absolute(cpu));
+			break;
 		case 0x90:
 			bcc(cpu);
+			break;
+		case 0x91:
+			sta(cpu, indirect_y(cpu));
+			break;
+		case 0x95:
+			sta(cpu, zero_page_x(cpu));
+			break;
+		case 0x99:
+			sta(cpu, absolute_y(cpu));
+			break;
+		case 0x9D:
+			sta(cpu, absolute_x(cpu));
 			break;
 		case 0xA0:
 			ldy(cpu, immediate(cpu));
