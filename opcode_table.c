@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:19:17 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/26 20:12:45 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/26 20:28:23 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,9 @@ void	exec_opcode(t_cpu *cpu)
 		case 0x36:
 			rol(cpu, zero_page_x(cpu), 1);
 			break;
+		case 0x38:
+			sec(cpu);
+			break;
 		case 0x39:
 			and(cpu, absolute_y(cpu));
 			break;
@@ -233,6 +236,9 @@ void	exec_opcode(t_cpu *cpu)
 			break;
 		case 0x76:
 			ror(cpu, zero_page_x(cpu), 1);
+			break;
+		case 0x78:
+			sei(cpu);
 			break;
 		case 0x79:
 			adc(cpu, absolute_y(cpu), CY_FLAG(cpu->sr));
@@ -409,6 +415,9 @@ void	exec_opcode(t_cpu *cpu)
 			break;
 		case 0xF6:
 			inc(cpu, zero_page_x(cpu));
+			break;
+		case 0xF8:
+			sed(cpu);
 			break;
 		case 0xF9:
 			sbc(cpu, absolute_y(cpu), CY_FLAG(cpu->sr));

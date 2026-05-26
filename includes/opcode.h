@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:00:44 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/26 20:06:53 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/26 20:20:01 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,8 @@ void	ror(t_cpu *cpu, t_am am, int dest_is_mem);
 void	rti(t_cpu *cpu);
 void	rts(t_cpu *cpu);
 void	sbc(t_cpu *cpu, t_am am, uint8_t c);
+void	sec(t_cpu *cpu);
+void	sed(t_cpu *cpu);
+void	sei(t_cpu *cpu);
 
 #endif

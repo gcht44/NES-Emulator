@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/26 20:09:58 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/26 20:19:39 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -330,4 +330,19 @@ void	sbc(t_cpu *cpu, t_am am, uint8_t c)
 	cpu->sr |= DEFINE_Z(a_tmp);
 	cpu->sr |= DEFINE_N(a_tmp);
 	cpu->a = a_tmp & 0xFF;
+}
+
+void	sec(t_cpu *cpu)
+{
+	cpu->sr |= 1;
+}
+
+void	sed(t_cpu *cpu)
+{
+	cpu->sr |= 0b1000;
+}
+
+void	sei(t_cpu *cpu)
+{
+	cpu->sr |= 0b0100;
 }
