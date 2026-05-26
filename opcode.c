@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/26 01:24:12 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/26 20:09:58 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -310,4 +310,24 @@ void	ror(t_cpu *cpu, t_am am, int dest_is_mem)
 		write_bus(am.addr_return, tmp & 0xFF);
 	else
 		cpu->a = tmp & 0xFF;
+}
+void	rti(t_cpu *cpu)
+{
+	cpu->sr |= pop_stack(cpu) & 0xCF;
+	cpu->pc = (pop_stack(cpu) | (pop_stack(cpu) >> 4)) + 1;
+}
+
+void	rts(t_cpu *cpu)
+{
+	cpu->pc = (pop_stack(cpu) | (pop_stack(cpu) >> 4)) + 1;
+}
+
+// overflow a setup
+void	sbc(t_cpu *cpu, t_am am, uint8_t c)
+{
+	uint16_t a_tmp = cpu->a - am.value - ~c;
+	cpu->sr |= ~(a_tmp < 0x00);
+	cpu->sr |= DEFINE_Z(a_tmp);
+	cpu->sr |= DEFINE_N(a_tmp);
+	cpu->a = a_tmp & 0xFF;
 }

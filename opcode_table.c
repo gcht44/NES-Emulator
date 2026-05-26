@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:19:17 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/26 01:33:03 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/26 20:12:45 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,9 @@ void	exec_opcode(t_cpu *cpu)
 		case 0x3E:
 			rol(cpu, absolute_x(cpu), 1);
 			break;
+		case 0x40:
+			rti(cpu);
+			break;
 		case 0x41:
 			eor(cpu, indirect_x(cpu));
 			break;
@@ -187,6 +190,9 @@ void	exec_opcode(t_cpu *cpu)
 			break;
 		case 0x5E:
 			lsr(cpu, absolute_x(cpu), 1);
+			break;
+		case 0x60:
+			rti(cpu);
 			break;
 		case 0x61:
 			adc(cpu, indirect_x(cpu), CY_FLAG(cpu->sr));
@@ -363,8 +369,14 @@ void	exec_opcode(t_cpu *cpu)
 		case 0xE0:
 			cpx(cpu, immediate(cpu));
 			break;
+		case 0xE1:
+			sbc(cpu, absolute_x(cpu), CY_FLAG(cpu->sr));
+			break;
 		case 0xE4:
 			cpx(cpu, zero_page(cpu));
+			break;
+		case 0xE5:
+			sbc(cpu, zero_page(cpu), CY_FLAG(cpu->sr));
 			break;
 		case 0xE6:
 			inc(cpu, zero_page(cpu));
@@ -372,10 +384,16 @@ void	exec_opcode(t_cpu *cpu)
 		case 0xE8:
 			inx(cpu);
 			break;
+		case 0xE9:
+			sbc(cpu, immediate(cpu), CY_FLAG(cpu->sr));
+			break;
 		case 0xEA: // NOP
 			break;
 		case 0xEC:
 			cpx(cpu, absolute(cpu));
+			break;
+		case 0xED:
+			sbc(cpu, absolute(cpu), CY_FLAG(cpu->sr));
 			break;
 		case 0xEE:
 			inc(cpu, absolute(cpu));
@@ -383,8 +401,20 @@ void	exec_opcode(t_cpu *cpu)
 		case 0xF0:
 			beq(cpu);
 			break;
+		case 0xF1:
+			sbc(cpu, indirect_y(cpu), CY_FLAG(cpu->sr));
+			break;
+		case 0xF5:
+			sbc(cpu, zero_page_x(cpu), CY_FLAG(cpu->sr));
+			break;
 		case 0xF6:
 			inc(cpu, zero_page_x(cpu));
+			break;
+		case 0xF9:
+			sbc(cpu, absolute_y(cpu), CY_FLAG(cpu->sr));
+			break;
+		case 0xFD:
+			sbc(cpu, absolute_x(cpu), CY_FLAG(cpu->sr));
 			break;
 		case 0xFE:
 			inc(cpu, absolute_x(cpu));

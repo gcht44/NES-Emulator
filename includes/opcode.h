@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:00:44 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/26 01:27:28 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/26 20:06:53 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_am
 
 # define DEFINE_CY(value) value > 0xFF ? 1 : 0
 # define DEFINE_Z(value) (value == 0x00 ? 1 : 0) << 1
-# define DEFINE_O(value) (value ^ A) & (value ^ memory) & $80
+# define DEFINE_O(value) (value ^ A) & (value ^ memory) & 0x80
 # define DEFINE_N(value) ((value & 0x80) > 0x00 ? 1 : 0) << 7
 
 // ADDRESSING MODE
@@ -87,5 +87,8 @@ void	pla(t_cpu *cpu);
 void	plp(t_cpu *cpu);
 void	rol(t_cpu *cpu, t_am am, int dest_is_mem);
 void	ror(t_cpu *cpu, t_am am, int dest_is_mem);
+void	rti(t_cpu *cpu);
+void	rts(t_cpu *cpu);
+void	sbc(t_cpu *cpu, t_am am, uint8_t c);
 
 #endif
