@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:00:44 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/26 20:34:19 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/26 20:49:07 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,11 @@ void	sei(t_cpu *cpu);
 void	sta(t_cpu *cpu, t_am am);
 void	stx(t_cpu *cpu, t_am am);
 void	sty(t_cpu *cpu, t_am am);
+void	tax(t_cpu *cpu);
+void	tay(t_cpu *cpu);
+void	tsx(t_cpu *cpu);
+void	txa(t_cpu *cpu);
+void	txs(t_cpu *cpu);
+void	tya(t_cpu *cpu);
 
 #endif

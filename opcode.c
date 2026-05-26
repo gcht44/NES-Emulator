@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/26 20:33:54 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/26 20:49:13 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -360,4 +360,34 @@ void	stx(t_cpu *cpu, t_am am)
 void	sty(t_cpu *cpu, t_am am)
 {
 	write_bus(am.value, cpu->y);
+}
+
+void	tax(t_cpu *cpu)
+{
+	cpu->x = cpu->a;
+}
+
+void	tay(t_cpu *cpu)
+{
+	cpu->y = cpu->a;
+}
+
+void	tsx(t_cpu *cpu)
+{
+	cpu->x = cpu->sp;
+}
+
+void	txa(t_cpu *cpu)
+{
+	cpu->a = cpu->x;
+}
+
+void	txs(t_cpu *cpu)
+{
+	cpu->sp = cpu->x;
+}
+
+void	tya(t_cpu *cpu)
+{
+	cpu->a = cpu->y;
 }

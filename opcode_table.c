@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:19:17 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/26 20:36:32 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/26 20:50:05 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,14 +252,29 @@ void	exec_opcode(t_cpu *cpu)
 		case 0x81:
 			sta(cpu, indirect_x(cpu));
 			break;
+		case 0x84:
+			sty(cpu, zero_page(cpu));
+			break;
 		case 0x85:
 			sta(cpu, zero_page(cpu));
+			break;
+		case 0x86:
+			stx(cpu, zero_page(cpu));
 			break;
 		case 0x88:
 			dey(cpu);
 			break;
+		case 0x8A:
+			txa(cpu);
+			break;
+		case 0x8C:
+			sty(cpu, absolute(cpu));
+			break;
 		case 0x8D:
 			sta(cpu, absolute(cpu));
+			break;
+		case 0x8E:
+			stx(cpu, absolute(cpu));
 			break;
 		case 0x90:
 			bcc(cpu);
@@ -267,11 +282,23 @@ void	exec_opcode(t_cpu *cpu)
 		case 0x91:
 			sta(cpu, indirect_y(cpu));
 			break;
+		case 0x94:
+			sty(cpu, zero_page_x(cpu));
+			break;
 		case 0x95:
 			sta(cpu, zero_page_x(cpu));
 			break;
+		case 0x96:
+			stx(cpu, zero_page_y(cpu));
+			break;
+		case 0x98:
+			tya(cpu);
+			break;
 		case 0x99:
 			sta(cpu, absolute_y(cpu));
+			break;
+		case 0x9A:
+			txs(cpu);
 			break;
 		case 0x9D:
 			sta(cpu, absolute_x(cpu));
@@ -294,8 +321,14 @@ void	exec_opcode(t_cpu *cpu)
 		case 0xA6:
 			ldx(cpu, zero_page(cpu));
 			break;
+		case 0xA8:
+			tay(cpu);
+			break;
 		case 0xA9:
 			lda(cpu, immediate(cpu));
+			break;
+		case 0xAA:
+			tax(cpu);
 			break;
 		case 0xAC:
 			ldy(cpu, absolute(cpu));
@@ -326,6 +359,9 @@ void	exec_opcode(t_cpu *cpu)
 			break;
 		case 0xB9:
 			lda(cpu, absolute_y(cpu));
+			break;
+		case 0xBA:
+			tsx(cpu);
 			break;
 		case 0xBC:
 			ldy(cpu, absolute_x(cpu));
