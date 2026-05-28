@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:00:44 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/26 20:52:13 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/28 01:41:36 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,9 @@ typedef struct s_am
 	uint8_t		value;
 } t_am;
 
-
-# define CY_FLAG(sr) sr & 0x01       // Carry flag
-# define Z_FLAG(sr)  (sr & 0x2) >> 1 // Zero Flag
-# define ID_FLAG(sr) (sr & 0x4) >> 2 // Interrupt disable
-# define D_FLAG(sr)  (sr & 0x8) >> 3 // Decimal
-# define B_FLAG(sr)  (sr & 0x10) >> 4 // B flag
-# define O_FLAG(sr)  (sr & 0x40) >> 6 // Overflow flag
-# define N_FLAG(sr)  (sr & 0x80) >> 7 // Negative flag
-
 # define DEFINE_CY(value) value > 0xFF ? 1 : 0
-# define DEFINE_Z(value) (value == 0x00 ? 1 : 0) << 1
-# define DEFINE_O(value) (value ^ A) & (value ^ memory) & 0x80
-# define DEFINE_N(value) ((value & 0x80) > 0x00 ? 1 : 0) << 7
+# define DEFINE_Z(value) (value == 0x00 ? 1 : 0)
+# define DEFINE_N(value) ((value & 0x80) > 0x00 ? 1 : 0)
 
 // ADDRESSING MODE
 t_am	immediate(t_cpu *cpu);

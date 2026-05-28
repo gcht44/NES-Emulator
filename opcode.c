@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/26 20:49:13 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/28 01:59:14 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,40 @@
 #include "bus.h"
 #include "stack.h"
 
+// probleme de partout sur opcode
+
+void	overflow(t_cpu *cpu, t_am am, uint8_t result)
+{
+	cpu->flags.v |= ((result ^ cpu->a) & (result ^ am.value) & 0x80) << 6;
+}
+
 // OPCODE POUR PLUS TARD: BRK
 
 // A rajouter Overflow flag
 void	adc(t_cpu *cpu, t_am am, uint8_t c)
 {
 	uint16_t a_tmp = cpu->a + am.value + c;
-	cpu->sr |= DEFINE_CY(a_tmp);
-	cpu->sr |= DEFINE_Z(a_tmp);
-	cpu->sr |= DEFINE_N(a_tmp);
+	cpu->flags.c = DEFINE_CY(a_tmp);
+	cpu->flags.z = DEFINE_Z(a_tmp);
+	cpu->flags.n = DEFINE_N(a_tmp);
+	overflow(cpu, am, a_tmp);
 	cpu->a = a_tmp & 0xFF;
 }
 
 void	and(t_cpu *cpu, t_am am)
 {
 	uint16_t a_tmp = cpu->a & am.value;
-	cpu->sr |= DEFINE_Z(a_tmp);
-	cpu->sr |= DEFINE_N(a_tmp);
+	cpu->flags.z = DEFINE_Z(a_tmp);
+	cpu->flags.n = DEFINE_N(a_tmp);
 	cpu->a = a_tmp & 0xFF;
 }
 
 void	asl(t_cpu *cpu, t_am am, int dest_is_mem)
 {
-
 	uint16_t tmp = am.value << 1;
-	cpu->sr |= (tmp & 0x100) > 0;
-	cpu->sr |= DEFINE_Z(tmp);
-	cpu->sr |= DEFINE_N(tmp);
+	cpu->flags.c = (tmp & 0x100) > 0;
+	cpu->flags.z = DEFINE_Z(tmp);
+	cpu->flags.n = DEFINE_N(tmp);
 	if (dest_is_mem)
 		write_bus(am.addr_return, tmp & 0xFF);
 	else
@@ -50,158 +57,159 @@ void	asl(t_cpu *cpu, t_am am, int dest_is_mem)
 void	bcc(t_cpu *cpu)
 {
 	int8_t	offset = read_bus(cpu->pc++);
-	if (!CY_FLAG(cpu->sr))
+	if (!cpu->flags.c)
 		cpu->pc += offset;
 }
 
 void	bcs(t_cpu *cpu)
 {
 	int8_t	offset = read_bus(cpu->pc++);
-	if (CY_FLAG(cpu->sr))
+	if (cpu->flags.c)
 		cpu->pc += offset;
 }
 
 void	beq(t_cpu *cpu)
 {
 	int8_t	offset = read_bus(cpu->pc++);
-	if (Z_FLAG(cpu->sr))
+	if (cpu->flags.z)
 		cpu->pc += offset;
 }
 // overflow pas implementer
 void	bit(t_cpu *cpu, t_am am)
 {
 	uint8_t tmp = cpu->a & am.value;
-	cpu->sr |= DEFINE_Z(tmp);
-	cpu->sr |= DEFINE_N(tmp);
+	cpu->flags.z = DEFINE_Z(tmp);
+	cpu->flags.n = DEFINE_N(tmp);
+	overflow(cpu, am, tmp);
 }
 
 void	bmi(t_cpu *cpu)
 {
 	int8_t	offset = read_bus(cpu->pc++);
-	if (N_FLAG(cpu->sr))
+	if (cpu->flags.n)
 		cpu->pc += offset;
 }
 
 void	bne(t_cpu *cpu)
 {
 	int8_t	offset = read_bus(cpu->pc++);
-	if (!Z_FLAG(cpu->sr))
+	if (!cpu->flags.z)
 		cpu->pc += offset;
 }
 
 void	bpl(t_cpu *cpu)
 {
 	int8_t	offset = read_bus(cpu->pc++);
-	if (!N_FLAG(cpu->sr))
+	if (!cpu->flags.n)
 		cpu->pc += offset;
 }
 
 void	bvc(t_cpu *cpu)
 {
 	int8_t	offset = read_bus(cpu->pc++);
-	if (!O_FLAG(cpu->sr))
+	if (!cpu->flags.v)
 		cpu->pc += offset;
 }
 
 void	bvs(t_cpu *cpu)
 {
 	int8_t	offset = read_bus(cpu->pc++);
-	if (O_FLAG(cpu->sr))
+	if (cpu->flags.v)
 		cpu->pc += offset;
 }
 
 void	clc(t_cpu *cpu)
 {
-	cpu->sr &= 0xFE;
+	cpu->flags.c = 0;
 }
 
 void	cld(t_cpu *cpu)
 {
-	cpu->sr &= 0xF7;
+	cpu->flags.d = 0;
 }
 
 void	clv(t_cpu *cpu)
 {
-	cpu->sr &= 0xBF;
+	cpu->flags.v = 0;
 }
 
 void	cmp(t_cpu *cpu, t_am am)
 {
 	uint16_t a_tmp = cpu->a - am.value;
-	cpu->sr |= DEFINE_Z(a_tmp);
-	cpu->sr |= DEFINE_N(a_tmp);
-	cpu->sr |= cpu->a >= am.value;
+	cpu->flags.z = DEFINE_Z(a_tmp);
+	cpu->flags.n = DEFINE_N(a_tmp);
+	cpu->flags.c = cpu->a >= am.value;
 }
 
 void	cpx(t_cpu *cpu, t_am am)
 {
 	uint16_t tmp = cpu->x - am.value;
-	cpu->sr |= DEFINE_Z(tmp);
-	cpu->sr |= DEFINE_N(tmp);
-	cpu->sr |= cpu->x >= am.value;
+	cpu->flags.z = DEFINE_Z(tmp);
+	cpu->flags.n = DEFINE_N(tmp);
+	cpu->flags.c = cpu->x >= am.value;
 }
 
 void	cpy(t_cpu *cpu, t_am am)
 {
 	uint16_t tmp = cpu->y - am.value;
-	cpu->sr |= DEFINE_Z(tmp);
-	cpu->sr |= DEFINE_N(tmp);
-	cpu->sr |= cpu->y >= am.value;
+	cpu->flags.z = DEFINE_Z(tmp);
+	cpu->flags.n = DEFINE_N(tmp);
+	cpu->flags.c = cpu->y >= am.value;
 }
 
 void	dec(t_cpu *cpu, t_am am)
 {
 	uint8_t tmp = am.value - 1;
-	cpu->sr |= DEFINE_Z(tmp);
-	cpu->sr |= DEFINE_N(tmp);
+	cpu->flags.z = DEFINE_Z(tmp);
+	cpu->flags.n = DEFINE_N(tmp);
 	write_bus(am.addr_return, tmp);
 }
 
 void	dex(t_cpu *cpu)
 {
 	uint8_t tmp = cpu->x - 1;
-	cpu->sr |= DEFINE_Z(tmp);
-	cpu->sr |= DEFINE_N(tmp);
+	cpu->flags.z = DEFINE_Z(tmp);
+	cpu->flags.n = DEFINE_N(tmp);
 	cpu->x = tmp;
 }
 
 void	dey(t_cpu *cpu)
 {
 	uint8_t tmp = cpu->y - 1;
-	cpu->sr |= DEFINE_Z(tmp);
-	cpu->sr |= DEFINE_N(tmp);
+	cpu->flags.z = DEFINE_Z(tmp);
+	cpu->flags.n = DEFINE_N(tmp);
 	cpu->y = tmp;
 }
 
 void	eor(t_cpu *cpu, t_am am)
 {
 	uint16_t a_tmp = cpu->a ^ am.value;
-	cpu->sr |= DEFINE_Z(a_tmp);
-	cpu->sr |= DEFINE_N(a_tmp);
+	cpu->flags.z = DEFINE_Z(a_tmp);
+	cpu->flags.n = DEFINE_N(a_tmp);
 	cpu->a = a_tmp & 0xFF;
 }
 
 void	inc(t_cpu *cpu, t_am am)
 {
 	uint8_t tmp = am.value + 1;
-	cpu->sr |= DEFINE_Z(tmp);
-	cpu->sr |= DEFINE_N(tmp);
+	cpu->flags.z = DEFINE_Z(tmp);
+	cpu->flags.n = DEFINE_N(tmp);
 	write_bus(am.addr_return, tmp);
 }
 
 void	inx(t_cpu *cpu)
 {
 	uint8_t tmp = cpu->x + 1;
-	cpu->sr |= DEFINE_Z(tmp);
-	cpu->sr |= DEFINE_N(tmp);
+	cpu->flags.z = DEFINE_Z(tmp);
+	cpu->flags.n = DEFINE_N(tmp);
 	cpu->x = tmp;
 }
 
 void	iny(t_cpu *cpu)
 {
 	uint8_t tmp = cpu->y + 1;
-	cpu->sr |= DEFINE_Z(tmp);
-	cpu->sr |= DEFINE_N(tmp);
+	cpu->flags.z = DEFINE_Z(tmp);
+	cpu->flags.n = DEFINE_N(tmp);
 	cpu->y = tmp;
 }
 
@@ -223,31 +231,31 @@ void	jsr(t_cpu *cpu, t_am am)
 void	lda(t_cpu *cpu, t_am am)
 {
 	cpu->a = am.value;
-	cpu->sr |= DEFINE_Z(cpu->a);
-	cpu->sr |= DEFINE_N(cpu->a);
+	cpu->flags.z = DEFINE_Z(cpu->a);
+	cpu->flags.n = DEFINE_N(cpu->a);
 }
 
 void	ldx(t_cpu *cpu, t_am am)
 {
 	cpu->x = am.value;
-	cpu->sr |= DEFINE_Z(cpu->x);
-	cpu->sr |= DEFINE_N(cpu->x);
+	cpu->flags.z = DEFINE_Z(cpu->x);
+	cpu->flags.n = DEFINE_N(cpu->x);
 }
 
 void	ldy(t_cpu *cpu, t_am am)
 {
 	cpu->y = am.value;
-	cpu->sr |= DEFINE_Z(cpu->y);
-	cpu->sr |= DEFINE_N(cpu->y);
+	cpu->flags.z = DEFINE_Z(cpu->y);
+	cpu->flags.n = DEFINE_N(cpu->y);
 }
 
 void	lsr(t_cpu *cpu, t_am am, int dest_is_mem)
 {
 
-	cpu->sr |= (am.value & 1);
+	cpu->flags.c |= (am.value & 1);
 	uint16_t tmp = am.value >> 1;
-	cpu->sr |= DEFINE_Z(tmp);
-	cpu->sr |= DEFINE_N(tmp);
+	cpu->flags.z = DEFINE_Z(tmp);
+	cpu->flags.n = DEFINE_N(tmp);
 	if (dest_is_mem)
 		write_bus(am.addr_return, tmp & 0xFF);
 	else
@@ -257,8 +265,8 @@ void	lsr(t_cpu *cpu, t_am am, int dest_is_mem)
 void	ora(t_cpu *cpu, t_am am)
 {
 	uint16_t a_tmp = cpu->a | am.value;
-	cpu->sr |= DEFINE_Z(a_tmp);
-	cpu->sr |= DEFINE_N(a_tmp);
+	cpu->flags.z = DEFINE_Z(a_tmp);
+	cpu->flags.n = DEFINE_N(a_tmp);
 	cpu->a = a_tmp & 0xFF;
 }
 
@@ -269,29 +277,36 @@ void	pha(t_cpu *cpu)
 
 void	php(t_cpu *cpu)
 {
-	push_stack(cpu, cpu->sr | 0x10);
+	push_stack(cpu, get_sr(cpu->flags) | 0x10);
 }
 
 void	pla(t_cpu *cpu)
 {
 	cpu->a = pop_stack(cpu);
-	cpu->sr |= DEFINE_Z(cpu->a);
-	cpu->sr |= DEFINE_N(cpu->a);
+	cpu->flags.z = DEFINE_Z(cpu->a);
+	cpu->flags.n = DEFINE_N(cpu->a);
 }
 
 void	plp(t_cpu *cpu)
 {
-	cpu->sr = pop_stack(cpu);
+	uint8_t tmp = pop_stack(cpu);
+	cpu->flags.c = tmp & 1;
+	cpu->flags.z = (tmp >> 1) & 1;
+	cpu->flags.i = (tmp >> 1) & 2;
+	cpu->flags.d = (tmp >> 1) & 3;
+	cpu->flags.b = (tmp >> 1) & 4;
+	cpu->flags.v = (tmp >> 1) & 6;
+	cpu->flags.n = (tmp >> 1) & 7;
 }
 
 void	rol(t_cpu *cpu, t_am am, int dest_is_mem)
 {
-	uint8_t		old_cy = CY_FLAG(cpu->sr);
+	uint8_t		old_cy = cpu->flags.c;
 	uint16_t	tmp = am.value << 1;
 	tmp |= old_cy;
-	cpu->sr |= (tmp & 0x100) > 0;
-	cpu->sr |= DEFINE_Z(tmp);
-	cpu->sr |= DEFINE_N(tmp);
+	cpu->flags.c |= (tmp & 0x100) > 0;
+	cpu->flags.z = DEFINE_Z(tmp);
+	cpu->flags.n = DEFINE_N(tmp);
 	if (dest_is_mem)
 		write_bus(am.addr_return, tmp & 0xFF);
 	else
@@ -302,10 +317,10 @@ void	ror(t_cpu *cpu, t_am am, int dest_is_mem)
 {
 	uint8_t		new_cy = am.value & 1;
 	uint16_t	tmp = am.value >> 1;
-	tmp |= (CY_FLAG(cpu->sr) << 7);
-	cpu->sr |= new_cy;
-	cpu->sr |= DEFINE_Z(tmp);
-	cpu->sr |= DEFINE_N(tmp);
+	tmp |= (cpu->flags.c << 7);
+	cpu->flags.c |= new_cy;
+	cpu->flags.z = DEFINE_Z(tmp);
+	cpu->flags.n = DEFINE_N(tmp);
 	if (dest_is_mem)
 		write_bus(am.addr_return, tmp & 0xFF);
 	else
@@ -313,7 +328,13 @@ void	ror(t_cpu *cpu, t_am am, int dest_is_mem)
 }
 void	rti(t_cpu *cpu)
 {
-	cpu->sr |= pop_stack(cpu) & 0xCF;
+	uint8_t tmp = pop_stack(cpu);
+	cpu->flags.c = tmp & 1;
+	cpu->flags.z = (tmp >> 1) & 1;
+	cpu->flags.i = (tmp >> 1) & 2;
+	cpu->flags.d = (tmp >> 1) & 3;
+	cpu->flags.v = (tmp >> 1) & 6;
+	cpu->flags.n = (tmp >> 1) & 7;
 	cpu->pc = (pop_stack(cpu) | (pop_stack(cpu) >> 4)) + 1;
 }
 
@@ -326,25 +347,26 @@ void	rts(t_cpu *cpu)
 void	sbc(t_cpu *cpu, t_am am, uint8_t c)
 {
 	uint16_t a_tmp = cpu->a - am.value - ~c;
-	cpu->sr |= ~(a_tmp < 0x00);
-	cpu->sr |= DEFINE_Z(a_tmp);
-	cpu->sr |= DEFINE_N(a_tmp);
+	cpu->flags.c = ~(a_tmp < 0x00);
+	cpu->flags.z = DEFINE_Z(a_tmp);
+	cpu->flags.n = DEFINE_N(a_tmp);
+	cpu->flags.v = ((a_tmp ^ cpu->a) & (a_tmp ^ ~am.value) & 0x80) << 6;
 	cpu->a = a_tmp & 0xFF;
 }
 
 void	sec(t_cpu *cpu)
 {
-	cpu->sr |= 1;
+	cpu->flags.c = 1;
 }
 
 void	sed(t_cpu *cpu)
 {
-	cpu->sr |= 0b1000;
+	cpu->flags.d = 1;
 }
 
 void	sei(t_cpu *cpu)
 {
-	cpu->sr |= 0b0100;
+	cpu->flags.i = 1;
 }
 
 void	sta(t_cpu *cpu, t_am am)

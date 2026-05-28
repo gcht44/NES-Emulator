@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:19:17 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/26 20:50:05 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/28 02:00:44 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	exec_opcode(t_cpu *cpu)
 
 	if (clear_it == 0)
 	{
-		cpu->sr &= 0xFB;
+		cpu->flags.i = 1;
 		clear_it = -1;
 	}
 	if (clear_it > 0)
@@ -198,10 +198,10 @@ void	exec_opcode(t_cpu *cpu)
 			rti(cpu);
 			break;
 		case 0x61:
-			adc(cpu, indirect_x(cpu), CY_FLAG(cpu->sr));
+			adc(cpu, indirect_x(cpu), cpu->flags.c);
 			break;
 		case 0x65:
-			adc(cpu, zero_page(cpu), CY_FLAG(cpu->sr));
+			adc(cpu, zero_page(cpu), cpu->flags.c);
 			break;
 		case 0x66:
 			ror(cpu, zero_page(cpu), 1);
@@ -210,7 +210,7 @@ void	exec_opcode(t_cpu *cpu)
 			pla(cpu);
 			break;
 		case 0x69:
-			adc(cpu, immediate(cpu), CY_FLAG(cpu->sr));
+			adc(cpu, immediate(cpu), cpu->flags.c);
 			break;
 		case 0x6A:
 			am.value = cpu->a;
@@ -220,7 +220,7 @@ void	exec_opcode(t_cpu *cpu)
 			jmp(cpu, indirect(cpu), 1);
 			break;
 		case 0x6D:
-			adc(cpu, absolute(cpu), CY_FLAG(cpu->sr));
+			adc(cpu, absolute(cpu), cpu->flags.c);
 			break;
 		case 0x6E:
 			ror(cpu, absolute(cpu), 1);
@@ -229,10 +229,10 @@ void	exec_opcode(t_cpu *cpu)
 			bvs(cpu);
 			break;
 		case 0x71:
-			adc(cpu, indirect_y(cpu), CY_FLAG(cpu->sr));
+			adc(cpu, indirect_y(cpu), cpu->flags.c);
 			break;
 		case 0x75:
-			adc(cpu, zero_page_x(cpu), CY_FLAG(cpu->sr));
+			adc(cpu, zero_page_x(cpu), cpu->flags.c);
 			break;
 		case 0x76:
 			ror(cpu, zero_page_x(cpu), 1);
@@ -241,10 +241,10 @@ void	exec_opcode(t_cpu *cpu)
 			sei(cpu);
 			break;
 		case 0x79:
-			adc(cpu, absolute_y(cpu), CY_FLAG(cpu->sr));
+			adc(cpu, absolute_y(cpu), cpu->flags.c);
 			break;
 		case 0x7D:
-			adc(cpu, absolute_x(cpu), CY_FLAG(cpu->sr));
+			adc(cpu, absolute_x(cpu), cpu->flags.c);
 			break;
 		case 0x7E:
 			ror(cpu, absolute_x(cpu), 1);
@@ -433,13 +433,13 @@ void	exec_opcode(t_cpu *cpu)
 			cpx(cpu, immediate(cpu));
 			break;
 		case 0xE1:
-			sbc(cpu, absolute_x(cpu), CY_FLAG(cpu->sr));
+			sbc(cpu, absolute_x(cpu), cpu->flags.c);
 			break;
 		case 0xE4:
 			cpx(cpu, zero_page(cpu));
 			break;
 		case 0xE5:
-			sbc(cpu, zero_page(cpu), CY_FLAG(cpu->sr));
+			sbc(cpu, zero_page(cpu), cpu->flags.c);
 			break;
 		case 0xE6:
 			inc(cpu, zero_page(cpu));
@@ -448,7 +448,7 @@ void	exec_opcode(t_cpu *cpu)
 			inx(cpu);
 			break;
 		case 0xE9:
-			sbc(cpu, immediate(cpu), CY_FLAG(cpu->sr));
+			sbc(cpu, immediate(cpu), cpu->flags.c);
 			break;
 		case 0xEA: // NOP
 			break;
@@ -456,7 +456,7 @@ void	exec_opcode(t_cpu *cpu)
 			cpx(cpu, absolute(cpu));
 			break;
 		case 0xED:
-			sbc(cpu, absolute(cpu), CY_FLAG(cpu->sr));
+			sbc(cpu, absolute(cpu), cpu->flags.c);
 			break;
 		case 0xEE:
 			inc(cpu, absolute(cpu));
@@ -465,10 +465,10 @@ void	exec_opcode(t_cpu *cpu)
 			beq(cpu);
 			break;
 		case 0xF1:
-			sbc(cpu, indirect_y(cpu), CY_FLAG(cpu->sr));
+			sbc(cpu, indirect_y(cpu), cpu->flags.c);
 			break;
 		case 0xF5:
-			sbc(cpu, zero_page_x(cpu), CY_FLAG(cpu->sr));
+			sbc(cpu, zero_page_x(cpu), cpu->flags.c);
 			break;
 		case 0xF6:
 			inc(cpu, zero_page_x(cpu));
@@ -477,10 +477,10 @@ void	exec_opcode(t_cpu *cpu)
 			sed(cpu);
 			break;
 		case 0xF9:
-			sbc(cpu, absolute_y(cpu), CY_FLAG(cpu->sr));
+			sbc(cpu, absolute_y(cpu), cpu->flags.c);
 			break;
 		case 0xFD:
-			sbc(cpu, absolute_x(cpu), CY_FLAG(cpu->sr));
+			sbc(cpu, absolute_x(cpu), cpu->flags.c);
 			break;
 		case 0xFE:
 			inc(cpu, absolute_x(cpu));
