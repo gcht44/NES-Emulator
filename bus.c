@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 22:02:53 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/28 02:27:25 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/28 02:31:57 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,7 @@ void	write_bus(uint16_t addr, uint8_t data)
 		exit(EXIT_FAILURE);
 	}
 	else if (addr < 0x8000) // RAM
-	{
-		printf("BUS (write): %04X Cartridge RAM not implemented\n", addr);
-		exit(EXIT_FAILURE);
-	}
+		write_ext_ram(addr, data);
 	else // ROM with mappers register
 	{
 		printf("BUS (write): %04X cant write ROM\n", addr);
@@ -98,10 +95,7 @@ uint8_t	read_bus(uint16_t addr)
 		exit(EXIT_FAILURE);
 	}
 	else if (addr < 0x8000) // SRAM de la cartouche (sauvegardes)
-	{
-		printf("BUS (write): %04X not implemented\n", addr);
-		exit(EXIT_FAILURE);
-	}
+		return (read_ext_ram(addr));
 	else
 		return (read_rom(addr));
 }
