@@ -6,12 +6,13 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 16:03:00 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/23 19:54:04 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/28 02:54:48 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rom.h"
 #include "cpu.h"
+#include "opcode.h"
 #include <stdio.h>
 
 int	main(void)
@@ -25,5 +26,9 @@ int	main(void)
 	}
 	printf("Initialisation de la memoire ROM: OK\n");
 	init_cpu(&cpu);
+	while (1)
+	{
+		exec_opcode(&cpu);
+	}
 	return (0);
 }
