@@ -6,12 +6,13 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 22:02:53 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/23 19:45:05 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/28 02:27:25 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bus.h"
 #include "rom.h"
+#include "ram.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -19,10 +20,7 @@ void	write_bus(uint16_t addr, uint8_t data)
 {
 	(void)data;
 	if (addr < 0x0800) // 2KB internal RAM
-	{
-		printf("BUS (write): %04X not implemented\n", addr);
-		exit(EXIT_FAILURE);
-	}
+		write_ram(addr, data);
 	else if (addr < 0x2000) // Mirror of 0x0000 0x07FF
 	{
 		printf("BUS (write): %04X not implemented\n", addr);
@@ -68,10 +66,7 @@ void	write_bus(uint16_t addr, uint8_t data)
 uint8_t	read_bus(uint16_t addr)
 {
 	if (addr < 0x0800) // 2KB internal RAM
-	{
-		printf("BUS (write): %04X not implemented\n", addr);
-		exit(EXIT_FAILURE);
-	}
+		return (read_ram(addr));
 	else if (addr < 0x2000) // Mirror of 0x0000 0x07FF
 	{
 		printf("BUS (write): %04X not implemented\n", addr);
