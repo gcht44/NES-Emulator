@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/28 02:02:37 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/28 03:23:06 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -343,10 +343,10 @@ void	rts(t_cpu *cpu)
 void	sbc(t_cpu *cpu, t_am am, uint8_t c)
 {
 	uint16_t a_tmp = cpu->a - am.value - ~c;
-	cpu->flags.c = ~(a_tmp < 0x00);
+	cpu->flags.c = !((int16_t)a_tmp < 0x00);
 	cpu->flags.z = DEFINE_Z(a_tmp);
 	cpu->flags.n = DEFINE_N(a_tmp);
-	cpu->flags.v = ((a_tmp ^ cpu->a) & (a_tmp ^ ~am.value) & 0x80) << 6;
+	cpu->flags.v = ((a_tmp ^ cpu->a) & (a_tmp ^ ~am.value) & 0x80);
 	cpu->a = a_tmp & 0xFF;
 }
 

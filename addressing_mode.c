@@ -6,11 +6,11 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 21:05:43 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/26 20:32:43 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/28 03:24:38 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "opcode.c"
+#include "opcode.h"
 #include "bus.h"
 
 /*
@@ -67,7 +67,9 @@ Lit simplement a l'addresse specifier par les deux octets apres l'opcode
 t_am	absolute(t_cpu *cpu)
 {
 	t_am am;
-	am.addr_return = read_bus(read_bus(cpu->pc++)) | (read_bus(read_bus(cpu->pc++)) << 8);
+	uint16_t lo = read_bus(cpu->pc++);
+	uint16_t ho = read_bus(cpu->pc++);
+	am.addr_return = lo | (ho << 8);
 	am.value = read_bus(am.addr_return);
 	return (am);
 }
@@ -75,7 +77,9 @@ t_am	absolute(t_cpu *cpu)
 t_am	absolute_x(t_cpu *cpu)
 {
 	t_am am;
-	am.addr_return = (read_bus(read_bus(cpu->pc++)) | (read_bus(read_bus(cpu->pc++)) << 8)) + cpu->x;
+	uint16_t lo = read_bus(cpu->pc++);
+	uint16_t ho = read_bus(cpu->pc++);
+	am.addr_return = (lo | (ho << 8)) + cpu->x;
 	am.value = read_bus(am.addr_return);
 	return (am);
 }
@@ -83,7 +87,10 @@ t_am	absolute_x(t_cpu *cpu)
 t_am	absolute_y(t_cpu *cpu)
 {
 	t_am am;
-	am.addr_return = (read_bus(read_bus(cpu->pc++)) | (read_bus(read_bus(cpu->pc++)) << 8)) + cpu->y;
+	
+		uint16_t lo = read_bus(cpu->pc++);
+	uint16_t ho = read_bus(cpu->pc++);
+	am.addr_return = (lo | (ho << 8)) + cpu->y;
 	am.value = read_bus(am.addr_return);
 	return (am);
 }
@@ -119,7 +126,9 @@ t_am	indirect_y(t_cpu *cpu)
 t_am	indirect(t_cpu *cpu)
 {
 	t_am	am;
-	uint16_t addr = read_bus(cpu->pc++) | (read_bus(cpu->pc++) << 8);
+	uint16_t lo = read_bus(cpu->pc++);
+	uint16_t ho = read_bus(cpu->pc++);
+	uint16_t addr = lo | (ho << 8);
 	am.addr_return = read_bus(addr) | (read_bus(addr + 1) << 8);
 	return (am);
 }

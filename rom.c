@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 16:13:42 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/23 19:54:18 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/28 03:27:34 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-static uint8_t	*g_rom_mem;
+static uint8_t	*g_rom_mem = NULL;
 
 int	init_memory_rom(const char *name)
 {

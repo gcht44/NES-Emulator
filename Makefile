@@ -1,12 +1,11 @@
 NAME = NES-Emu
 
 CC = cc
-CFLAGS = -Werror -Wall -Wextra
+CFLAGS = -Werror -Wall -Wextra -g
 
 INCLUDE = -I./includes
 
-SRCS = main.c rom.c bus.c cpu.c
-
+SRCS = main.c addressing_mode.c rom.c bus.c cpu.c ram.c stack.c blaarg.c opcode.c opcode_table.c
 OBJ_DIR = obj
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 

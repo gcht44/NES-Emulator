@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 02:35:11 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/28 02:47:50 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/28 03:13:19 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,6 @@
 # include <stdint.h>
 # include "cpu.h"
 
-void	reset_vector_press(t_cpu *cpu);
+void	handle_status(void);
 
 #endif

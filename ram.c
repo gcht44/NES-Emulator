@@ -6,14 +6,14 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 02:20:52 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/28 02:29:55 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/28 03:28:02 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/ram.h"
 
-static uint8_t ram[0x800];
-static uint8_t external_ram[0x2000];
+static uint8_t ram[0x800] = {0};
+static uint8_t external_ram[0x2000] = {0};
 
 uint8_t	read_ram(uint16_t addr)
 {

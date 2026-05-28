@@ -6,11 +6,12 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 17:08:08 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/28 02:57:07 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/28 03:12:52 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cpu.h"
+#include "bus.h"
 #include <stdio.h>
 
 uint8_t	get_sr(t_flags flags)
@@ -21,7 +22,7 @@ uint8_t	get_sr(t_flags flags)
 void	init_cpu(t_cpu *cpu)
 {
 	cpu->a = 0;
-	cpu->pc = (read_bus(0xFFFD) << 8) || read_bus(0xFFFC);
+	cpu->pc = ((uint16_t)read_bus(0xFFFD) << 8) | (uint16_t)read_bus(0xFFFC);
 	cpu->sp = 0xFD;
 	cpu->flags.i = 1;
 	cpu->flags.c = 0;
