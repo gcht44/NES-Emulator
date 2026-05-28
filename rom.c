@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rom.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchalmel <gchalmel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 16:13:42 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/28 03:27:34 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/28 18:17:10 by gchalmel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@
 #include <stdlib.h>
 
 static uint8_t	*g_rom_mem = NULL;
+static uint8_t	prg_rom[32768] = {0};
 
+// Mapper 1 for blaarg ne pas merge ca car pas du tout implementer completement
 int	init_memory_rom(const char *name)
 {
 	FILE	*fp;
@@ -34,11 +36,14 @@ int	init_memory_rom(const char *name)
 	len_rom = ftell(fp);
 	rewind(fp);
 	g_rom_mem = malloc(len_rom);
+	printf("ROM SIZE: %ldKb\n", len_rom / 1000);
 	if (fread(g_rom_mem, 1, len_rom, fp) != (size_t)len_rom)
 	{
 		printf("ERR (INIT ROM): Survenue lors de la lecture de la rom\n");
 		return (EXIT_FAILURE);
 	}
+	for (int i=0; i < 32768 ; i++)
+		prg_rom[i] = g_rom_mem[0x10 + i];
 	return (EXIT_SUCCESS);
 }
 
