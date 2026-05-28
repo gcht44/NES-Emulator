@@ -6,15 +6,13 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/28 01:59:14 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/28 02:02:37 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "opcode.h"
 #include "bus.h"
 #include "stack.h"
-
-// probleme de partout sur opcode
 
 void	overflow(t_cpu *cpu, t_am am, uint8_t result)
 {
@@ -23,7 +21,6 @@ void	overflow(t_cpu *cpu, t_am am, uint8_t result)
 
 // OPCODE POUR PLUS TARD: BRK
 
-// A rajouter Overflow flag
 void	adc(t_cpu *cpu, t_am am, uint8_t c)
 {
 	uint16_t a_tmp = cpu->a + am.value + c;
@@ -74,7 +71,7 @@ void	beq(t_cpu *cpu)
 	if (cpu->flags.z)
 		cpu->pc += offset;
 }
-// overflow pas implementer
+
 void	bit(t_cpu *cpu, t_am am)
 {
 	uint8_t tmp = cpu->a & am.value;
@@ -343,7 +340,6 @@ void	rts(t_cpu *cpu)
 	cpu->pc = (pop_stack(cpu) | (pop_stack(cpu) >> 4)) + 1;
 }
 
-// overflow a setup
 void	sbc(t_cpu *cpu, t_am am, uint8_t c)
 {
 	uint16_t a_tmp = cpu->a - am.value - ~c;
