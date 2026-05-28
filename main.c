@@ -6,11 +6,12 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 16:03:00 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/28 02:54:48 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/28 03:05:04 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rom.h"
+#include "bus.h"
 #include "cpu.h"
 #include "opcode.h"
 #include <stdio.h>
@@ -28,6 +29,10 @@ int	main(void)
 	init_cpu(&cpu);
 	while (1)
 	{
+		printf("PC:%04X (%02X) -> %c%c%c%c%c%c%c A:%02X X:%02X Y:%02X SP:%02X",
+		cpu.pc, read_bus(cpu.pc), cpu.flags.n ? 'N' : '-', cpu.flags.v ? 'V' : '-',
+		cpu.flags.b ? 'B' : '-', cpu.flags.d ? 'D' : '-', cpu.flags.i ? 'I' : '-',
+		cpu.flags.z ? 'Z' : '-', cpu.flags.c ? 'C' : '-');
 		exec_opcode(&cpu);
 	}
 	return (0);
