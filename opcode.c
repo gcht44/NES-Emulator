@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/29 14:12:58 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/29 14:14:01 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -371,12 +371,12 @@ void	sta(t_cpu *cpu, t_am am)
 
 void	stx(t_cpu *cpu, t_am am)
 {
-	write_bus(am.value, cpu->x);
+	write_bus(am.addr_return, cpu->x);
 }
 
 void	sty(t_cpu *cpu, t_am am)
 {
-	write_bus(am.value, cpu->y);
+	write_bus(am.addr_return, cpu->y);
 }
 
 void	tax(t_cpu *cpu)
