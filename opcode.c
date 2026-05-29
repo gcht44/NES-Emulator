@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/29 23:50:08 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/30 01:12:04 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,7 +247,7 @@ void	ldy(t_cpu *cpu, t_am am)
 void	lsr(t_cpu *cpu, t_am am, int dest_is_mem)
 {
 
-	cpu->flags.c |= (am.value & 1);
+	cpu->flags.c = (am.value & 1);
 	uint16_t tmp = am.value >> 1;
 	cpu->flags.z = DEFINE_Z(tmp);
 	cpu->flags.n = DEFINE_N(tmp);
