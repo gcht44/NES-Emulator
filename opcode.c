@@ -6,7 +6,7 @@
 /*   By: gchalmel <gchalmel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/29 17:09:07 by gchalmel         ###   ########.fr       */
+/*   Updated: 2026/05/29 18:18:19 by gchalmel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -345,9 +345,9 @@ void	sbc(t_cpu *cpu, t_am am, uint8_t c)
 {
 	uint16_t a_tmp = cpu->a - am.value - ~c;
 	cpu->flags.c = !((int16_t)a_tmp < 0x00);
-	cpu->flags.z = DEFINE_Z(a_tmp);
-	cpu->flags.n = DEFINE_N(a_tmp);
-	cpu->flags.v = ((a_tmp ^ cpu->a) & (a_tmp ^ ~am.value) & 0x80);
+	cpu->flags.z = DEFINE_Z((int8_t)a_tmp);
+	cpu->flags.n = DEFINE_N((int8_t)a_tmp);
+	cpu->flags.v = ((a_tmp ^ cpu->a) & (a_tmp ^ ~am.value) & 0x80) > 0;
 	cpu->a = a_tmp & 0xFF;
 }
 
