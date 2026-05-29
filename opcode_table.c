@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   opcode_table.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchalmel <gchalmel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:19:17 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/29 16:53:53 by gchalmel         ###   ########.fr       */
+/*   Updated: 2026/05/30 01:38:37 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -433,7 +433,7 @@ void	exec_opcode(t_cpu *cpu)
 			cpx(cpu, immediate(cpu));
 			break;
 		case 0xE1:
-			sbc(cpu, absolute_x(cpu), cpu->flags.c);
+			sbc(cpu, indirect_x(cpu), cpu->flags.c);
 			break;
 		case 0xE4:
 			cpx(cpu, zero_page(cpu));
