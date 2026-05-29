@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/29 23:23:05 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/29 23:30:36 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -384,21 +384,29 @@ void	sty(t_cpu *cpu, t_am am)
 void	tax(t_cpu *cpu)
 {
 	cpu->x = cpu->a;
+	cpu->flags.z = DEFINE_Z(cpu->a);
+	cpu->flags.n = DEFINE_N(cpu->a);
 }
 
 void	tay(t_cpu *cpu)
 {
 	cpu->y = cpu->a;
+	cpu->flags.z = DEFINE_Z(cpu->a);
+	cpu->flags.n = DEFINE_N(cpu->a);
 }
 
 void	tsx(t_cpu *cpu)
 {
 	cpu->x = cpu->sp;
+	cpu->flags.z = DEFINE_Z(cpu->a);
+	cpu->flags.n = DEFINE_N(cpu->a);
 }
 
 void	txa(t_cpu *cpu)
 {
 	cpu->a = cpu->x;
+	cpu->flags.z = DEFINE_Z(cpu->a);
+	cpu->flags.n = DEFINE_N(cpu->a);
 }
 
 void	txs(t_cpu *cpu)
@@ -409,4 +417,6 @@ void	txs(t_cpu *cpu)
 void	tya(t_cpu *cpu)
 {
 	cpu->a = cpu->y;
+	cpu->flags.z = DEFINE_Z(cpu->a);
+	cpu->flags.n = DEFINE_N(cpu->a);
 }
