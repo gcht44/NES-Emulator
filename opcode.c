@@ -6,7 +6,7 @@
 /*   By: gchalmel <gchalmel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/29 17:02:53 by gchalmel         ###   ########.fr       */
+/*   Updated: 2026/05/29 17:09:07 by gchalmel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	adc(t_cpu *cpu, t_am am, uint8_t c)
 {
 	uint16_t a_tmp = cpu->a + am.value + c;
 	cpu->flags.c = DEFINE_CY(a_tmp);
-	cpu->flags.z = DEFINE_Z(a_tmp);
-	cpu->flags.n = DEFINE_N(a_tmp);
+	cpu->flags.z = DEFINE_Z((uint8_t)a_tmp);
+	cpu->flags.n = DEFINE_N((uint8_t)a_tmp);
 	overflow(cpu, am, a_tmp);
 	cpu->a = a_tmp & 0xFF;
 }
