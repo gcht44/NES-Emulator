@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/29 03:28:40 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/29 14:03:20 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ void	bit(t_cpu *cpu, t_am am)
 {
 	uint8_t tmp = cpu->a & am.value;
 	cpu->flags.z = DEFINE_Z(tmp);
-	cpu->flags.n = DEFINE_N(tmp);
-	overflow(cpu, am, tmp);
+	cpu->flags.n = DEFINE_N(am.value);
+	overflow(cpu, am, am.value);
 }
 
 void	bmi(t_cpu *cpu)
@@ -219,7 +219,7 @@ void	jsr(t_cpu *cpu, t_am am)
 {
 	push_stack(cpu, ((cpu->pc - 1) & 0xFF00) >> 8);
 	push_stack(cpu, (cpu->pc - 1) & 0x00FF);
-	cpu->pc += am.addr_return;
+	cpu->pc = am.addr_return;
 }
 
 void	lda(t_cpu *cpu, t_am am)
@@ -334,7 +334,7 @@ void	rti(t_cpu *cpu)
 
 void	rts(t_cpu *cpu)
 {
-	cpu->pc = (pop_stack(cpu) | (pop_stack(cpu) >> 4)) + 1;
+	cpu->pc = ((uint16_t)pop_stack(cpu) | ((uint16_t)pop_stack(cpu) << 8)) + 1;
 }
 
 void	sbc(t_cpu *cpu, t_am am, uint8_t c)
