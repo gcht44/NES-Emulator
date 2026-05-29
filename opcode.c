@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/28 03:23:06 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/29 03:10:50 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,12 +210,9 @@ void	iny(t_cpu *cpu)
 	cpu->y = tmp;
 }
 
-void	jmp(t_cpu *cpu, t_am am, int is_indirect)
+void	jmp(t_cpu *cpu, t_am am)
 {
-	if (is_indirect)
-		cpu->pc = am.addr_return;
-	else
-		cpu->pc = am.value;
+	cpu->pc = am.addr_return;
 }
 
 void	jsr(t_cpu *cpu, t_am am)

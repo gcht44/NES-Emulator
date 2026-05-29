@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:19:17 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/28 03:16:16 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/29 03:11:07 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ void	exec_opcode(t_cpu *cpu)
 			lsr(cpu, am, 0);
 			break;
 		case 0x4C:
-			jmp(cpu, absolute(cpu), 0);
+			jmp(cpu, absolute(cpu));
 			break;
 		case 0x4D:
 			eor(cpu, absolute(cpu));
@@ -217,7 +217,7 @@ void	exec_opcode(t_cpu *cpu)
 			ror(cpu, am, 0);
 			break;
 		case 0x6C:
-			jmp(cpu, indirect(cpu), 1);
+			jmp(cpu, indirect(cpu));
 			break;
 		case 0x6D:
 			adc(cpu, absolute(cpu), cpu->flags.c);
