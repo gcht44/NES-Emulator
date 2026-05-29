@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rom.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gchalmel <gchalmel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 16:13:42 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/28 18:17:10 by gchalmel         ###   ########.fr       */
+/*   Updated: 2026/05/29 03:04:57 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,5 @@ int	init_memory_rom(const char *name)
 
 uint8_t	read_rom(uint16_t addr)
 {
-	return (g_rom_mem[addr - 0x8000]);
+	return (prg_rom[addr - 0x8000]);
 }
