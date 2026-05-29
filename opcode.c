@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/29 23:30:36 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/29 23:50:08 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -326,11 +326,11 @@ void	rti(t_cpu *cpu)
 	uint8_t tmp = pop_stack(cpu);
 	cpu->flags.c = tmp & 1;
 	cpu->flags.z = (tmp >> 1) & 1;
-	cpu->flags.i = (tmp >> 1) & 2;
-	cpu->flags.d = (tmp >> 1) & 3;
-	cpu->flags.v = (tmp >> 1) & 6;
-	cpu->flags.n = (tmp >> 1) & 7;
-	cpu->pc = (pop_stack(cpu) | (pop_stack(cpu) >> 4)) + 1;
+	cpu->flags.i = (tmp >> 2) & 1;
+	cpu->flags.d = (tmp >> 3) & 1;
+	cpu->flags.v = (tmp >> 6) & 1;
+	cpu->flags.n = (tmp >> 7) & 1;
+	cpu->pc = (pop_stack(cpu) | (pop_stack(cpu) << 8));
 }
 
 void	rts(t_cpu *cpu)
