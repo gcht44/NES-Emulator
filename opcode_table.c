@@ -6,7 +6,7 @@
 /*   By: gchalmel <gchalmel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:19:17 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/29 16:38:10 by gchalmel         ###   ########.fr       */
+/*   Updated: 2026/05/29 16:53:53 by gchalmel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	exec_opcode(t_cpu *cpu)
 			rol(cpu, absolute(cpu), 1);
 			break;
 		case 0x30:
-			bne(cpu);
+			bmi(cpu);
 			break;
 		case 0x31:
 			and(cpu, indirect_y(cpu));
