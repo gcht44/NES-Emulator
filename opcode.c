@@ -6,7 +6,7 @@
 /*   By: gchalmel <gchalmel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/29 16:48:53 by gchalmel         ###   ########.fr       */
+/*   Updated: 2026/05/29 17:02:53 by gchalmel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 void	overflow(t_cpu *cpu, t_am am, uint8_t result)
 {
-	cpu->flags.v |= ((result ^ cpu->a) & (result ^ am.value) & 0x80) << 6;
+	cpu->flags.v = ((result ^ cpu->a) & (result ^ am.value) & 0x80) > 0;
 }
 
 // OPCODE POUR PLUS TARD: BRK
