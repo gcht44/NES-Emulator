@@ -6,13 +6,14 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/29 14:03:20 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/29 14:12:58 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "opcode.h"
 #include "bus.h"
 #include "stack.h"
+#include <stdio.h>
 
 void	overflow(t_cpu *cpu, t_am am, uint8_t result)
 {
@@ -77,7 +78,8 @@ void	bit(t_cpu *cpu, t_am am)
 	uint8_t tmp = cpu->a & am.value;
 	cpu->flags.z = DEFINE_Z(tmp);
 	cpu->flags.n = DEFINE_N(am.value);
-	overflow(cpu, am, am.value);
+	cpu->flags.v = (am.value & 0x40) > 0;
+	printf("BIT: value:%02X addr_value:%04X\n", am.value, am.addr_return);
 }
 
 void	bmi(t_cpu *cpu)
@@ -364,7 +366,7 @@ void	sei(t_cpu *cpu)
 
 void	sta(t_cpu *cpu, t_am am)
 {
-	write_bus(am.value, cpu->a);
+	write_bus(am.addr_return, cpu->a);
 }
 
 void	stx(t_cpu *cpu, t_am am)
