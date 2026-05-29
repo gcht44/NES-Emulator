@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 21:05:43 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/28 03:24:38 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/30 01:29:35 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,10 @@ Etape 3: on lit a addresse
 t_am	indirect_x(t_cpu *cpu)
 {
 	t_am am;
-	uint16_t ptr = read_bus(cpu->pc++) + cpu->x;
-	am.addr_return = read_bus(ptr) | (read_bus((ptr + 1) & 0xFF) << 8);
+	uint16_t ptr = (read_bus(cpu->pc++) + cpu->x) & 0xFF;
+	uint16_t lo = (uint16_t)read_bus(ptr);
+	uint16_t ho = (uint16_t)read_bus((ptr + 1) & 0xFF);
+	am.addr_return = lo | (ho << 8);
 	am.value = read_bus(am.addr_return);
 	return (am);
 }
