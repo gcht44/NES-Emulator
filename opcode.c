@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/29 03:10:50 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/29 03:28:40 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,7 +219,7 @@ void	jsr(t_cpu *cpu, t_am am)
 {
 	push_stack(cpu, ((cpu->pc - 1) & 0xFF00) >> 8);
 	push_stack(cpu, (cpu->pc - 1) & 0x00FF);
-	cpu->pc = am.value;
+	cpu->pc += am.addr_return;
 }
 
 void	lda(t_cpu *cpu, t_am am)
