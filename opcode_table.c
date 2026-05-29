@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:19:17 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/29 03:11:07 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/29 14:27:14 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,7 +195,7 @@ void	exec_opcode(t_cpu *cpu)
 			lsr(cpu, absolute_x(cpu), 1);
 			break;
 		case 0x60:
-			rti(cpu);
+			rts(cpu);
 			break;
 		case 0x61:
 			adc(cpu, indirect_x(cpu), cpu->flags.c);

@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/29 14:14:01 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/29 14:27:23 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ void	bit(t_cpu *cpu, t_am am)
 	cpu->flags.z = DEFINE_Z(tmp);
 	cpu->flags.n = DEFINE_N(am.value);
 	cpu->flags.v = (am.value & 0x40) > 0;
-	printf("BIT: value:%02X addr_value:%04X\n", am.value, am.addr_return);
 }
 
 void	bmi(t_cpu *cpu)
@@ -336,6 +335,9 @@ void	rti(t_cpu *cpu)
 
 void	rts(t_cpu *cpu)
 {
+	// uint8_t lo = pop_stack(cpu);
+	//uint8_t ho = pop_stack(cpu);
+	// printf("lo:%02X, ho:%02X, addr:%04X\n", lo, ho, (ho << 8) | lo);
 	cpu->pc = ((uint16_t)pop_stack(cpu) | ((uint16_t)pop_stack(cpu) << 8)) + 1;
 }
 
