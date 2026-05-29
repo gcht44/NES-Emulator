@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   opcode.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchalmel <gchalmel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/29 14:27:23 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/29 16:37:19 by gchalmel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -272,7 +272,7 @@ void	pha(t_cpu *cpu)
 
 void	php(t_cpu *cpu)
 {
-	push_stack(cpu, get_sr(cpu->flags) | 0x10);
+	push_stack(cpu, get_sr(cpu->flags) | 0x30);
 }
 
 void	pla(t_cpu *cpu)

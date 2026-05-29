@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   stack.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchalmel <gchalmel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 19:54:07 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/28 03:08:42 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/29 16:35:22 by gchalmel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 
 void	push_stack(t_cpu *cpu, uint8_t value)
 {
-	write_bus(cpu->sp + 0x100, value);
+	write_bus((uint16_t)cpu->sp + (uint16_t)0x100, value);
 	cpu->sp--;
 }
 
 uint8_t	pop_stack(t_cpu *cpu)
 {
 	cpu->sp++;
-	return (read_bus(cpu->sp + 0x100));
+	return (read_bus((uint16_t)cpu->sp + (uint16_t)0x100));
 }

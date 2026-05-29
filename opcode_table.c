@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   opcode_table.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
+/*   By: gchalmel <gchalmel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:19:17 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/29 14:27:14 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/29 16:38:10 by gchalmel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	exec_opcode(t_cpu *cpu)
 			asl(cpu, zero_page(cpu), 1);
 			break;
 		case 0x08:
-			pha(cpu);
+			php(cpu);
 			break;
 		case 0x09:
 			ora(cpu, immediate(cpu));
