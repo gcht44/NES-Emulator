@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 16:03:00 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/29 13:49:29 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/30 02:55:01 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 #include "opcode.h"
 #include "blaarg.h"
 #include <stdio.h>
+
+// jusqua 5529 ligne du nestest le cpu fonctionne correctement
 
 int	main(void)
 {

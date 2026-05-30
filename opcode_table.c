@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:19:17 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/30 02:42:37 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/30 03:00:37 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -291,6 +291,9 @@ void	exec_opcode(t_cpu *cpu)
 		case 0x81:
 			sta(cpu, indirect_x(cpu));
 			break;
+		case 0x83:
+			sax(cpu, indirect_x(cpu));
+			break;
 		case 0x84:
 			sty(cpu, zero_page(cpu));
 			break;
@@ -299,6 +302,9 @@ void	exec_opcode(t_cpu *cpu)
 			break;
 		case 0x86:
 			stx(cpu, zero_page(cpu));
+			break;
+		case 0x87:
+			sax(cpu, zero_page(cpu));
 			break;
 		case 0x88:
 			dey(cpu);
@@ -315,6 +321,9 @@ void	exec_opcode(t_cpu *cpu)
 		case 0x8E:
 			stx(cpu, absolute(cpu));
 			break;
+		case 0x8F:
+			sax(cpu, absolute(cpu));
+			break;
 		case 0x90:
 			bcc(cpu);
 			break;
@@ -329,6 +338,9 @@ void	exec_opcode(t_cpu *cpu)
 			break;
 		case 0x96:
 			stx(cpu, zero_page_y(cpu));
+			break;
+		case 0x97:
+			sax(cpu, zero_page_y(cpu));
 			break;
 		case 0x98:
 			tya(cpu);
@@ -406,7 +418,7 @@ void	exec_opcode(t_cpu *cpu)
 			ldx(cpu, zero_page_y(cpu));
 			break;
 		case 0xB7:
-			lax(cpu, zero_page_x(cpu));
+			lax(cpu, zero_page_y(cpu));
 			break;
 		case 0xB8:
 			clv(cpu);

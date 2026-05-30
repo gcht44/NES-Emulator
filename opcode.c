@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/30 02:30:09 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/30 02:58:31 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -425,4 +425,10 @@ void	lax(t_cpu *cpu, t_am am)
 {
 	lda(cpu, am);
 	ldx(cpu, am);
+}
+
+void	sax(t_cpu *cpu, t_am am)
+{
+	uint8_t res = cpu->a & cpu->x;
+	write_bus(am.addr_return, res);
 }
