@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:19:17 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/30 03:00:37 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/30 13:12:11 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -447,6 +447,9 @@ void	exec_opcode(t_cpu *cpu)
 		case 0xC1:
 			cmp(cpu, indirect_x(cpu));
 			break;
+		case 0xC3:
+			dcp(cpu, indirect_x(cpu));
+			break;
 		case 0xC4:
 			cpy(cpu, zero_page(cpu));
 			break;
@@ -455,6 +458,9 @@ void	exec_opcode(t_cpu *cpu)
 			break;
 		case 0xC6:
 			dec(cpu, zero_page(cpu));
+			break;
+		case 0xC7:
+			dcp(cpu, zero_page(cpu));
 			break;
 		case 0xC8:
 			iny(cpu);
@@ -474,11 +480,17 @@ void	exec_opcode(t_cpu *cpu)
 		case 0xCE:
 			dec(cpu, absolute(cpu));
 			break;
+		case 0xCF:
+			dcp(cpu, absolute(cpu));
+			break;
 		case 0xD0:
 			bne(cpu);
 			break;
 		case 0xD1:
 			cmp(cpu, indirect_y(cpu));
+			break;
+		case 0xD3:
+			dcp(cpu, indirect_y(cpu));
 			break;
 		case 0xD4:	// NOP zero_page_x
 			zero_page_x(cpu);
@@ -489,11 +501,17 @@ void	exec_opcode(t_cpu *cpu)
 		case 0xD6:
 			dec(cpu, zero_page_x(cpu));
 			break;
+		case 0xD7:
+			dcp(cpu, zero_page_x(cpu));
+			break;
 		case 0xD8:
 			cld(cpu);
 			break;
 		case 0xD9:
 			cmp(cpu, absolute_y(cpu));
+			break;
+		case 0xDB:
+			dcp(cpu, absolute_y(cpu));
 			break;
 		case 0xDC:	// NOP absolute
 			absolute(cpu);
@@ -506,6 +524,9 @@ void	exec_opcode(t_cpu *cpu)
 			break;
 		case 0xE0:
 			cpx(cpu, immediate(cpu));
+			break;
+		case 0xDF:
+			dcp(cpu, zero_page_x(cpu));
 			break;
 		case 0xE1:
 			sbc(cpu, indirect_x(cpu), cpu->flags.c);
@@ -526,6 +547,9 @@ void	exec_opcode(t_cpu *cpu)
 			sbc(cpu, immediate(cpu), cpu->flags.c);
 			break;
 		case 0xEA: // NOP
+			break;
+		case 0xEB:
+			usbc(cpu, immediate(cpu), cpu->flags.c);
 			break;
 		case 0xEC:
 			cpx(cpu, absolute(cpu));

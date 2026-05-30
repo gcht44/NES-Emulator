@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/30 02:58:31 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/30 13:36:40 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ void	clv(t_cpu *cpu)
 
 void	cmp(t_cpu *cpu, t_am am)
 {
-	uint16_t a_tmp = cpu->a - am.value;
+	uint8_t a_tmp = cpu->a - am.value;
 	cpu->flags.z = DEFINE_Z(a_tmp);
 	cpu->flags.n = DEFINE_N(a_tmp);
 	cpu->flags.c = cpu->a >= am.value;
@@ -431,4 +431,19 @@ void	sax(t_cpu *cpu, t_am am)
 {
 	uint8_t res = cpu->a & cpu->x;
 	write_bus(am.addr_return, res);
+}
+
+void	usbc(t_cpu *cpu, t_am am, uint8_t c)
+{
+	sbc(cpu, am, c);
+}
+
+void	dcp(t_cpu *cpu, t_am am)
+{
+	dec(cpu, am);
+	uint8_t	a_tmp = cpu->a - read_bus(am.addr_return);
+
+	cpu->flags.z = DEFINE_Z(a_tmp);
+	cpu->flags.n = DEFINE_N(a_tmp);
+	cpu->flags.c = cpu->a >= am.value;
 }
