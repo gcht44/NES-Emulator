@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:19:17 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/30 13:12:11 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/30 13:56:28 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -526,7 +526,7 @@ void	exec_opcode(t_cpu *cpu)
 			cpx(cpu, immediate(cpu));
 			break;
 		case 0xDF:
-			dcp(cpu, zero_page_x(cpu));
+			dcp(cpu, absolute_x(cpu));
 			break;
 		case 0xE1:
 			sbc(cpu, indirect_x(cpu), cpu->flags.c);

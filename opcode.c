@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/30 13:36:40 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/30 13:50:47 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -440,10 +440,10 @@ void	usbc(t_cpu *cpu, t_am am, uint8_t c)
 
 void	dcp(t_cpu *cpu, t_am am)
 {
-	dec(cpu, am);
-	uint8_t	a_tmp = cpu->a - read_bus(am.addr_return);
+	t_am am_tmp;
 
-	cpu->flags.z = DEFINE_Z(a_tmp);
-	cpu->flags.n = DEFINE_N(a_tmp);
-	cpu->flags.c = cpu->a >= am.value;
+	dec(cpu, am);
+	am_tmp.value = read_bus(am.addr_return);
+	am_tmp.addr_return = 0;
+	cmp(cpu, am_tmp);
 }
