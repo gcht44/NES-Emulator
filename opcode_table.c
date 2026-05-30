@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:19:17 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/30 13:56:28 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/30 14:18:49 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ void	exec_opcode(t_cpu *cpu)
 		case 0x01:
 			ora(cpu, indirect_x(cpu));
 			break;
+		case 0x03:
+			slo(cpu, indirect_x(cpu));
+			break;
 		case 0x04:	// NOP zero_page
 			zero_page(cpu);
 			break;
@@ -41,6 +44,9 @@ void	exec_opcode(t_cpu *cpu)
 			break;
 		case 0x06:
 			asl(cpu, zero_page(cpu), 1);
+			break;
+		case 0x07:
+			slo(cpu, zero_page(cpu));
 			break;
 		case 0x08:
 			php(cpu);
@@ -62,11 +68,17 @@ void	exec_opcode(t_cpu *cpu)
 		case 0x0E:
 			asl(cpu, absolute(cpu), 1);
 			break;
+		case 0x0F:
+			slo(cpu, absolute(cpu));
+			break;
 		case 0x10:
 			bpl(cpu);
 			break;
 		case 0x11:
 			ora(cpu, indirect_y(cpu));
+			break;
+		case 0x13:
+			slo(cpu, indirect_y(cpu));
 			break;
 		case 0x14:	// NOP zero_page_x
 			zero_page_x(cpu);
@@ -77,11 +89,17 @@ void	exec_opcode(t_cpu *cpu)
 		case 0x16:
 			asl(cpu, zero_page_x(cpu), 1);
 			break;
+		case 0x17:
+			slo(cpu, zero_page_x(cpu));
+			break;
 		case 0x18:
 			clc(cpu);
 			break;
 		case 0x19:
 			ora(cpu, absolute_y(cpu));
+			break;
+		case 0x1B:
+			slo(cpu, absolute_y(cpu));
 			break;
 		case 0x1C:	// NOP absolute
 			absolute(cpu);
@@ -91,6 +109,9 @@ void	exec_opcode(t_cpu *cpu)
 			break;
 		case 0x1E:
 			asl(cpu, absolute_x(cpu), 1);
+			break;
+		case 0x1F:
+			slo(cpu, absolute_x(cpu));
 			break;
 		case 0x20:
 			jsr(cpu, absolute(cpu));
@@ -531,6 +552,9 @@ void	exec_opcode(t_cpu *cpu)
 		case 0xE1:
 			sbc(cpu, indirect_x(cpu), cpu->flags.c);
 			break;
+		case 0xE3:
+			isc(cpu, indirect_x(cpu));
+			break;
 		case 0xE4:
 			cpx(cpu, zero_page(cpu));
 			break;
@@ -539,6 +563,9 @@ void	exec_opcode(t_cpu *cpu)
 			break;
 		case 0xE6:
 			inc(cpu, zero_page(cpu));
+			break;
+		case 0xE7:
+			isc(cpu, zero_page(cpu));
 			break;
 		case 0xE8:
 			inx(cpu);
@@ -560,11 +587,17 @@ void	exec_opcode(t_cpu *cpu)
 		case 0xEE:
 			inc(cpu, absolute(cpu));
 			break;
+		case 0xEF:
+			isc(cpu, absolute(cpu));
+			break;
 		case 0xF0:
 			beq(cpu);
 			break;
 		case 0xF1:
 			sbc(cpu, indirect_y(cpu), cpu->flags.c);
+			break;
+		case 0xF3:
+			isc(cpu, indirect_y(cpu));
 			break;
 		case 0xF4:	// NOP zero_page_x
 			zero_page_x(cpu);
@@ -575,11 +608,17 @@ void	exec_opcode(t_cpu *cpu)
 		case 0xF6:
 			inc(cpu, zero_page_x(cpu));
 			break;
+		case 0xF7:
+			isc(cpu, zero_page_x(cpu));
+			break;
 		case 0xF8:
 			sed(cpu);
 			break;
 		case 0xF9:
 			sbc(cpu, absolute_y(cpu), cpu->flags.c);
+			break;
+		case 0xFB:
+			isc(cpu, absolute_y(cpu));
 			break;
 		case 0xFC:	// NOP absolute
 			absolute(cpu);
@@ -589,6 +628,9 @@ void	exec_opcode(t_cpu *cpu)
 			break;
 		case 0xFE:
 			inc(cpu, absolute_x(cpu));
+			break;
+		case 0xFF:
+			isc(cpu, absolute_x(cpu));
 			break;
 		default:
 			break;

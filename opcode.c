@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/30 13:50:47 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/30 14:08:09 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -446,4 +446,24 @@ void	dcp(t_cpu *cpu, t_am am)
 	am_tmp.value = read_bus(am.addr_return);
 	am_tmp.addr_return = 0;
 	cmp(cpu, am_tmp);
+}
+
+void	isc(t_cpu *cpu, t_am am)
+{
+	t_am	am_tmp;
+
+	inc(cpu, am);
+	am_tmp.value = read_bus(am.addr_return);
+	am_tmp.addr_return = 0;
+	sbc(cpu, am_tmp, cpu->flags.c);
+}
+
+void	slo(t_cpu *cpu, t_am am)
+{
+	t_am	am_tmp;
+
+	asl(cpu, am, 1);
+	am_tmp.value = read_bus(am.addr_return);
+	am_tmp.addr_return = 0;
+	ora(cpu, am_tmp);
 }
