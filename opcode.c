@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/30 16:00:11 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/30 16:21:45 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -496,4 +496,14 @@ void	sre(t_cpu *cpu, t_am am)
 	am_tmp.value = read_bus(am.addr_return);
 	am_tmp.addr_return = 0;
 	eor(cpu, am_tmp);
+}
+
+void	brk(t_cpu *cpu)
+{
+	cpu->pc++;
+	push_stack(cpu, (cpu->pc >> 8));
+	push_stack(cpu, cpu->pc & 0xFF);
+	push_stack(cpu, get_sr(cpu->flags) | 0x10);
+	cpu->flags.i = 1;
+	cpu->pc = read_bus(0xFFFE) | (read_bus(0xFFFF) << 8);
 }

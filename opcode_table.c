@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:19:17 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/30 16:02:34 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/30 16:24:52 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@ void	exec_opcode(t_cpu *cpu)
 
 	switch (opcode)
 	{
+		case 0x00:
+			brk(cpu);
+			break;
 		case 0x01:
 			ora(cpu, indirect_x(cpu));
 			break;
