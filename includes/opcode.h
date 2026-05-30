@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:00:44 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/29 03:10:54 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/30 02:32:34 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,8 @@ void	tsx(t_cpu *cpu);
 void	txa(t_cpu *cpu);
 void	txs(t_cpu *cpu);
 void	tya(t_cpu *cpu);
+
+// illegal opcode
+void	lax(t_cpu *cpu, t_am am);
 
 #endif

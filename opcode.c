@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/30 01:17:54 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/30 02:30:09 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -419,4 +419,10 @@ void	tya(t_cpu *cpu)
 	cpu->a = cpu->y;
 	cpu->flags.z = DEFINE_Z(cpu->a);
 	cpu->flags.n = DEFINE_N(cpu->a);
+}
+
+void	lax(t_cpu *cpu, t_am am)
+{
+	lda(cpu, am);
+	ldx(cpu, am);
 }
