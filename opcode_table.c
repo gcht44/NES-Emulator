@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:19:17 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/30 16:24:52 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/30 16:49:39 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,6 @@ void	exec_opcode(t_cpu *cpu)
 {
 	uint8_t	opcode = read_bus(cpu->pc++);
 	t_am	am;
-	int		clear_it = -1;
-
-	if (clear_it == 0)
-	{
-		cpu->flags.i = 1;
-		clear_it = -1;
-	}
-	if (clear_it > 0)
-		clear_it--;
 
 	switch (opcode)
 	{
@@ -266,8 +257,8 @@ void	exec_opcode(t_cpu *cpu)
 		case 0x57:
 			sre(cpu, zero_page_x(cpu));
 			break;
-		case 0x58:
-			clear_it = 1;
+		case 0x58:	// cli
+			cpu->flags.i = 0;
 			break;
 		case 0x59:
 			eor(cpu, absolute_y(cpu));
