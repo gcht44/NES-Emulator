@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:00:44 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/30 14:08:22 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/30 14:29:17 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,7 @@ void	usbc(t_cpu *cpu, t_am am, uint8_t c);
 void	dcp(t_cpu *cpu, t_am am);
 void	isc(t_cpu *cpu, t_am am);
 void	slo(t_cpu *cpu, t_am am);
+void	rla(t_cpu *cpu, t_am am);
+void	rra(t_cpu *cpu, t_am am);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/30 14:08:09 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/30 15:57:26 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -299,7 +299,7 @@ void	rol(t_cpu *cpu, t_am am, int dest_is_mem)
 	uint8_t		old_cy = cpu->flags.c;
 	uint16_t	tmp = am.value << 1;
 	tmp |= old_cy;
-	cpu->flags.c |= (tmp & 0x100) > 0;
+	cpu->flags.c = (tmp & 0x100) > 0;
 	cpu->flags.z = DEFINE_Z(tmp);
 	cpu->flags.n = DEFINE_N(tmp);
 	if (dest_is_mem)
@@ -313,7 +313,7 @@ void	ror(t_cpu *cpu, t_am am, int dest_is_mem)
 	uint8_t		new_cy = am.value & 1;
 	uint16_t	tmp = am.value >> 1;
 	tmp |= (cpu->flags.c << 7);
-	cpu->flags.c |= new_cy;
+	cpu->flags.c = new_cy;
 	cpu->flags.z = DEFINE_Z(tmp);
 	cpu->flags.n = DEFINE_N(tmp);
 	if (dest_is_mem)
@@ -466,4 +466,24 @@ void	slo(t_cpu *cpu, t_am am)
 	am_tmp.value = read_bus(am.addr_return);
 	am_tmp.addr_return = 0;
 	ora(cpu, am_tmp);
+}
+
+void	rla(t_cpu *cpu, t_am am)
+{
+	t_am	am_tmp;
+
+	rol(cpu, am, 1);
+	am_tmp.value = read_bus(am.addr_return);
+	am_tmp.addr_return = 0;
+	and(cpu, am_tmp);
+}
+
+void	rra(t_cpu *cpu, t_am am)
+{
+	t_am	am_tmp;
+
+	ror(cpu, am, 1);
+	am_tmp.value = read_bus(am.addr_return);
+	am_tmp.addr_return = 0;
+	adc(cpu, am_tmp, cpu->flags.c);
 }
