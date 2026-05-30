@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 16:03:00 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/30 16:04:42 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/30 16:22:01 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(void)
 {
 	t_cpu	cpu;
 
-	if (init_memory_rom("ROMS/test_roms/cpu_instr/nestest.nes"))
+	if (init_memory_rom("ROMS/test_roms/cpu_instr/01-basics.nes"))
 	{
 		printf("Initialisation de la memoire ROM: ERR\n");
 		return (0);

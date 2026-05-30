@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 17:08:08 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/29 13:25:18 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/30 16:05:47 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ uint8_t	get_sr(t_flags flags)
 void	init_cpu(t_cpu *cpu)
 {
 	cpu->a = 0;
-	// cpu->pc = ((uint16_t)read_bus(0xFFFD) << 8) | (uint16_t)read_bus(0xFFFC);
-	cpu->pc = 0xC000;
+	cpu->pc = ((uint16_t)read_bus(0xFFFD) << 8) | (uint16_t)read_bus(0xFFFC);
+	// cpu->pc = 0xC000;
 	cpu->sp = 0xFD;
 	cpu->flags.i = 1;
 	cpu->flags.c = 0;
