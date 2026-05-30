@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/30 16:21:45 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/30 16:34:25 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -300,8 +300,8 @@ void	rol(t_cpu *cpu, t_am am, int dest_is_mem)
 	uint16_t	tmp = am.value << 1;
 	tmp |= old_cy;
 	cpu->flags.c = (tmp & 0x100) > 0;
-	cpu->flags.z = DEFINE_Z(tmp);
-	cpu->flags.n = DEFINE_N(tmp);
+	cpu->flags.z = DEFINE_Z((tmp & 0xFF));
+	cpu->flags.n = DEFINE_N((tmp & 0xFF));
 	if (dest_is_mem)
 		write_bus(am.addr_return, tmp & 0xFF);
 	else
