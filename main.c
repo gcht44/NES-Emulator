@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 16:03:00 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/30 02:55:01 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/30 16:04:42 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@
 #include "blaarg.h"
 #include <stdio.h>
 
-// jusqua 5529 ligne du nestest le cpu fonctionne correctement
+// Nestest.nes OK
+// Blaarg soon
 
 int	main(void)
 {
