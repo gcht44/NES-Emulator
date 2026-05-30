@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:19:17 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/30 01:38:37 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/30 02:12:23 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,9 @@ void	exec_opcode(t_cpu *cpu)
 			am.value = cpu->a;
 			am.addr_return = 0;
 			asl(cpu, am, 0);
+			break;
+		case 0x0C:	// NOP chelou
+			cpu->pc += 2;
 			break;
 		case 0x0D:
 			ora(cpu, absolute(cpu));
