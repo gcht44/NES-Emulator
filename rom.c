@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/22 16:13:42 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/29 13:36:46 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/30 16:27:16 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	init_memory_rom(const char *name)
 
 uint8_t	read_rom(uint16_t addr)
 {
-	if ((addr - 0x8000) >= 0x4000)
-		addr -= 0x4000;
+	/*if ((addr - 0x8000) >= 0x4000)
+		addr -= 0x4000;*/
 	return (prg_rom[addr - 0x8000]);
 }
