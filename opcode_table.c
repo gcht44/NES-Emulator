@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:19:17 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/30 02:34:58 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/30 02:42:37 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,6 +284,9 @@ void	exec_opcode(t_cpu *cpu)
 			break;
 		case 0x7E:
 			ror(cpu, absolute_x(cpu), 1);
+			break;
+		case 0x80:
+			immediate(cpu);
 			break;
 		case 0x81:
 			sta(cpu, indirect_x(cpu));
