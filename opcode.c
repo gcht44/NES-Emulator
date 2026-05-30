@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/30 15:57:26 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/30 16:00:11 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -486,4 +486,14 @@ void	rra(t_cpu *cpu, t_am am)
 	am_tmp.value = read_bus(am.addr_return);
 	am_tmp.addr_return = 0;
 	adc(cpu, am_tmp, cpu->flags.c);
+}
+
+void	sre(t_cpu *cpu, t_am am)
+{
+	t_am	am_tmp;
+
+	lsr(cpu, am, 1);
+	am_tmp.value = read_bus(am.addr_return);
+	am_tmp.addr_return = 0;
+	eor(cpu, am_tmp);
 }

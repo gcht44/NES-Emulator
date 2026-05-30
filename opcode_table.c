@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:19:17 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/30 14:31:25 by gabch            ###   ########.fr       */
+/*   Updated: 2026/05/30 16:02:34 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,6 +204,9 @@ void	exec_opcode(t_cpu *cpu)
 		case 0x41:
 			eor(cpu, indirect_x(cpu));
 			break;
+		case 0x43:
+			sre(cpu, indirect_x(cpu));
+			break;
 		case 0x44:	// NOP zero_page
 			zero_page(cpu);
 			break;
@@ -212,6 +215,9 @@ void	exec_opcode(t_cpu *cpu)
 			break;
 		case 0x46:
 			lsr(cpu, zero_page(cpu), 1);
+			break;
+		case 0x47:
+			sre(cpu, zero_page(cpu));
 			break;
 		case 0x48:
 			pha(cpu);
@@ -233,11 +239,17 @@ void	exec_opcode(t_cpu *cpu)
 		case 0x4E:
 			lsr(cpu, absolute(cpu), 1);
 			break;
+		case 0x4F:
+			sre(cpu, absolute(cpu));
+			break;
 		case 0x50:
 			bvc(cpu);
 			break;
 		case 0x51:
 			eor(cpu, indirect_y(cpu));
+			break;
+		case 0x53:
+			sre(cpu, indirect_y(cpu));
 			break;
 		case 0x54:	// NOP zero_page_x
 			zero_page_x(cpu);
@@ -248,11 +260,17 @@ void	exec_opcode(t_cpu *cpu)
 		case 0x56:
 			lsr(cpu, zero_page_x(cpu), 1);
 			break;
+		case 0x57:
+			sre(cpu, zero_page_x(cpu));
+			break;
 		case 0x58:
 			clear_it = 1;
 			break;
 		case 0x59:
 			eor(cpu, absolute_y(cpu));
+			break;
+		case 0x5B:
+			sre(cpu, absolute_y(cpu));
 			break;
 		case 0x5C:	// NOP absolute
 			absolute(cpu);
@@ -262,6 +280,9 @@ void	exec_opcode(t_cpu *cpu)
 			break;
 		case 0x5E:
 			lsr(cpu, absolute_x(cpu), 1);
+			break;
+		case 0x5F:
+			sre(cpu, absolute_x(cpu));
 			break;
 		case 0x60:
 			rts(cpu);
