@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:19:17 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/30 16:49:39 by gabch            ###   ########.fr       */
+/*   Updated: 2026/09/30 00:35:41 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,9 @@ void	exec_opcode(t_cpu *cpu)
 			am.value = cpu->a;
 			am.addr_return = 0;
 			asl(cpu, am, 0);
+			break;
+		case 0x0B:	// NOP absolute
+			anc(cpu, immediate(cpu));
 			break;
 		case 0x0C:	// NOP absolute
 			absolute(cpu);
@@ -137,6 +140,9 @@ void	exec_opcode(t_cpu *cpu)
 		case 0x2A:
 			am.value = cpu->a;
 			rol(cpu, am, 0);
+			break;
+		case 0x2B:	// NOP absolute
+			anc(cpu, immediate(cpu));
 			break;
 		case 0x2C:
 			bit(cpu, absolute(cpu));
@@ -224,6 +230,9 @@ void	exec_opcode(t_cpu *cpu)
 			am.addr_return = 0;
 			lsr(cpu, am, 0);
 			break;
+		case 0x4B:
+			alr(cpu, immediate(cpu));
+			break;
 		case 0x4C:
 			jmp(cpu, absolute(cpu));
 			break;
@@ -309,6 +318,9 @@ void	exec_opcode(t_cpu *cpu)
 			am.value = cpu->a;
 			ror(cpu, am, 0);
 			break;
+		case 0x6B:
+			arr(cpu, immediate(cpu));
+			break;
 		case 0x6C:
 			jmp(cpu, indirect(cpu));
 			break;
@@ -369,6 +381,9 @@ void	exec_opcode(t_cpu *cpu)
 		case 0x81:
 			sta(cpu, indirect_x(cpu));
 			break;
+		case 0x82:
+			immediate(cpu);
+			break;
 		case 0x83:
 			sax(cpu, indirect_x(cpu));
 			break;
@@ -387,8 +402,14 @@ void	exec_opcode(t_cpu *cpu)
 		case 0x88:
 			dey(cpu);
 			break;
+		case 0x89:
+			immediate(cpu);
+			break;
 		case 0x8A:
 			txa(cpu);
+			break;
+		case 0x8B:
+			ane(cpu, immediate(cpu));
 			break;
 		case 0x8C:
 			sty(cpu, absolute(cpu));
@@ -465,6 +486,9 @@ void	exec_opcode(t_cpu *cpu)
 		case 0xAA:
 			tax(cpu);
 			break;
+		case 0xAB:
+			lxa(cpu, immediate(cpu));
+			break;
 		case 0xAC:
 			ldy(cpu, absolute(cpu));
 			break;
@@ -525,6 +549,9 @@ void	exec_opcode(t_cpu *cpu)
 		case 0xC1:
 			cmp(cpu, indirect_x(cpu));
 			break;
+		case 0xC2:
+			immediate(cpu);
+			break;
 		case 0xC3:
 			dcp(cpu, indirect_x(cpu));
 			break;
@@ -548,6 +575,9 @@ void	exec_opcode(t_cpu *cpu)
 			break;
 		case 0xCA:
 			dex(cpu);
+			break;
+		case 0xCB:
+			sbx(cpu, immediate(cpu));
 			break;
 		case 0xCC:
 			cpy(cpu, absolute(cpu));
@@ -608,6 +638,9 @@ void	exec_opcode(t_cpu *cpu)
 			break;
 		case 0xE1:
 			sbc(cpu, indirect_x(cpu), cpu->flags.c);
+			break;
+		case 0xE2:
+			immediate(cpu);
 			break;
 		case 0xE3:
 			isc(cpu, indirect_x(cpu));

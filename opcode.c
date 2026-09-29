@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:02:22 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/30 16:34:25 by gabch            ###   ########.fr       */
+/*   Updated: 2026/09/30 01:32:27 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -506,4 +506,70 @@ void	brk(t_cpu *cpu)
 	push_stack(cpu, get_sr(cpu->flags) | 0x10);
 	cpu->flags.i = 1;
 	cpu->pc = read_bus(0xFFFE) | (read_bus(0xFFFF) << 8);
+}
+
+void	anc(t_cpu *cpu, t_am am)
+{
+	uint16_t a_tmp = cpu->a & am.value;
+	cpu->flags.z = DEFINE_Z(a_tmp);
+	cpu->flags.n = DEFINE_N(a_tmp);
+	cpu->flags.c = (a_tmp & 0x80) != 0;
+	cpu->a = a_tmp & 0xFF;
+}
+
+void	alr(t_cpu *cpu, t_am am)
+{
+	am.value = cpu->a & am.value;
+	lsr(cpu, am, 0);
+}
+
+void	arr(t_cpu *cpu, t_am am)
+{
+	uint8_t	res_and = cpu->a & am.value;
+	uint8_t rotated = res_and >> 1;
+
+	rotated |= cpu->flags.c << 7;
+	cpu->flags.c = 0;
+	cpu->flags.n = 0;
+	cpu->flags.z = 0;
+	cpu->flags.v = 0;
+
+	cpu->flags.c = (rotated & 0x40) ? 1 : 0;
+	cpu->flags.v = (((rotated & 0x40) >> 1) ^ (rotated & 0x20)) ? 1: 0;
+	cpu->flags.z = DEFINE_Z(rotated);
+	cpu->flags.n = DEFINE_N(rotated);
+
+	cpu->a = rotated;
+}
+
+void	ane(t_cpu *cpu, t_am am)
+{
+	uint16_t a_tmp = (cpu->a | 0xEE) & cpu->x & am.value;
+	cpu->flags.z = DEFINE_Z(a_tmp);
+	cpu->flags.n = DEFINE_N(a_tmp);
+
+	cpu->a = a_tmp & 0xFF;
+}
+
+void	lxa(t_cpu *cpu, t_am am)
+{
+	/*uint16_t a_tmp = (cpu->a | 0xEE) & am.value;
+	cpu->flags.z = DEFINE_Z(a_tmp);
+	cpu->flags.n = DEFINE_N(a_tmp);*/
+	cpu->a = am.value;
+	cpu->x = am.value;
+
+	cpu->flags.z = DEFINE_Z(cpu->a);
+	cpu->flags.n = DEFINE_N(cpu->a);
+}
+
+void	sbx(t_cpu *cpu, t_am am)
+{
+	uint8_t value = cpu->a & cpu->x;
+	uint16_t diff = value - am.value;
+
+	cpu->flags.z = DEFINE_Z(diff);
+	cpu->flags.n = DEFINE_N(diff);
+	cpu->flags.c = value >= am.value;
+	cpu->x = diff;
 }

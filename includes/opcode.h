@@ -6,7 +6,7 @@
 /*   By: gabch <gabch@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/23 20:00:44 by gabch             #+#    #+#             */
-/*   Updated: 2026/05/30 16:23:12 by gabch            ###   ########.fr       */
+/*   Updated: 2026/09/30 00:35:29 by gabch            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,11 @@ void	slo(t_cpu *cpu, t_am am);
 void	rla(t_cpu *cpu, t_am am);
 void	rra(t_cpu *cpu, t_am am);
 void	sre(t_cpu *cpu, t_am am);
+void	anc(t_cpu *cpu, t_am am);
+void	alr(t_cpu *cpu, t_am am);
+void	arr(t_cpu *cpu, t_am am);
+void	ane(t_cpu *cpu, t_am am);
+void	lxa(t_cpu *cpu, t_am am);
+void	sbx(t_cpu *cpu, t_am am);
 
 #endif
